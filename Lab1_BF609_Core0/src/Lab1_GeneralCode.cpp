@@ -22,17 +22,13 @@ static bool My_Init_GPIO_REB_Output_Done = false;
 //Given the variable lastLEDValueWritten a garbage value to start
 static unsigned char lastLEDValueWritten = GARBAGE_VALUE;
 
-//Underneath is the code stub for Start Lab1
-void Start_Lab1(void)
+
+void Start_Lab1(void) //Code stub for Start Lab1
 {
 	printf("Here in Start_Lab1\n"); //This is declaring it is the start of Lab 1
 
-	//unsigned char switchValueBad = My_ReadSwitches();
-
 	My_Init_SwitchInterface();  //This function is initiating the switches on the panel
 	My_Init_GPIO_REB_Input(); //This function is initiating the switches on the board
-
-#if 1
 	My_Init_LEDInterface();  //This function is initiating the LEDS on the panel
 	My_Init_GPIO_REB_Output(); //This function is initiating the LEDs on the board
 
@@ -43,6 +39,7 @@ void Start_Lab1(void)
 	//The array below holds the hex values for Aidan's initials
 	unsigned char initials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
 
+	//The array below holds random short int value to display the LED lights
 	unsigned short int array[4] = {0x0000, 0x0001, 0x0002, 0x0003}; //Array to test the LEDs
 
 	int count = 0; //Creating a counter value
@@ -96,34 +93,6 @@ void Start_Lab1(void)
 			count = 0;
 		}
 	}
-
-#endif
-
-//This Code was for printing to the front panels by using a for loop
-#if 0
-	for (useLEDValue = 0; useLEDValue <= 0x80; useLEDValue++)
-	{
-		My_WriteLED(useLEDValue);
-		unsigned char checkLEDValue = My_ReadLED();
-		if (checkLEDValue != useLEDValue)
-		{
-			printf("Bad LED read / write test -- wrote %d and got back %d \n", useLEDValue, checkLEDValue);
-		}
-		else
-		{
-			printf("wrote %d and got back %d \n", useLEDValue, checkLEDValue);
-		}
-	}
-
-#elseif
-	unsigned char intials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
-
-	for(int count = 0; count < 15; count++)
-	{
-		My_WriteLED(intials[count]);
-	}
-
-#endif
 }
 
 unsigned char My_ReadSwitches(void) //This function is reading the switches from the panel
@@ -166,12 +135,6 @@ unsigned char My_ReadSwitches(void) //This function is reading the switches from
 		return 0x55;
 	#endif
 
-}
-
-unsigned char My_ReadLED(void) //This function is returning the last LED value written
-{
-	//printf("Stub for My_ReadLED()\n");
-	return lastLEDValueWritten;
 }
 
 void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing the values for the REB LEDs
