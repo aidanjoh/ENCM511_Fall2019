@@ -21,7 +21,6 @@ void My_Init_GPIO_REB_Input(void);
 void My_Init_GPIO_REB_Output(void);
 
 //Read Prototypes
-unsigned char My_ReadLED(void);
 unsigned char My_ReadSwitches(void);
 
 //Write Prototypes

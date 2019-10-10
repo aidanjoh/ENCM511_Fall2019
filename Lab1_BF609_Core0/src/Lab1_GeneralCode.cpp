@@ -19,10 +19,6 @@ static bool My_Init_LEDInterface_Done = false;
 static bool My_Init_GPIO_REB_Input_Done = false;
 static bool My_Init_GPIO_REB_Output_Done = false;
 
-//Given the variable lastLEDValueWritten a garbage value to start
-static unsigned char lastLEDValueWritten = GARBAGE_VALUE;
-
-
 void Start_Lab1(void) //Code stub for Start Lab1
 {
 	printf("Here in Start_Lab1\n"); //This is declaring it is the start of Lab 1
@@ -164,19 +160,13 @@ void My_WriteLED(unsigned char neededLEDValue) //This function is writing the va
 	}
 
 #ifdef __ADSPBF609__
-
-	unsigned char binaryArray[9]; //Char array holding the values to print out
-	charToBinary(neededLEDValue, binaryArray); //Calling the char to binary function
 	Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
-
-	lastLEDValueWritten = neededLEDValue; //Putting the last LED value into the appropriate variable
 
 #else //This is for the 533 emulator
 	//Char array holding the values to print out
 	unsigned char binaryArray[9];
 	charToBinary(neededLEDValue, binaryArray); //Function converting the char to binary using the array holding the values
 	printf("LED value - decimal %3d; hex 0x%2x; bit pattern %s \n", neededLEDValue, neededLEDValue, &binaryArray);
-	lastLEDValueWritten = neededLEDValue;
 #endif
 
 }
