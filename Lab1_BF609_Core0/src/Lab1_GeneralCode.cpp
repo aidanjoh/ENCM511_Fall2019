@@ -93,12 +93,9 @@ unsigned char My_ReadSwitches(void) //This function is reading the switches from
 				return GARBAGE_VALUE;
 			}
 
-			REB_BITS16 activeHighValues = Read_GPIO_REB_Input(); //The board is active high
-
-			#define MASK_KEEP_BITS_11_TO_8 0x0f00
-			REB_BITS16 wantedSwitchOnBoardValueActiveHigh = activeHighValues & MASK_KEEP_BITS_11_TO_8;
-			wantedSwitchOnBoardValueActiveHigh = wantedSwitchOnBoardValueActiveHigh >> 8;
+			REB_BITS16 wantedSwitchOnBoardValueActiveHigh = My_Read_GPIO_REB_Input(); //The board is active high
 			return wantedSwitchOnBoardValueActiveHigh;
+
 		#endif
 
 		#if 0
@@ -134,8 +131,7 @@ void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing th
 	}
 
 	#ifdef __ADSPBF609__
-		LEDValue = LEDValue << 12; //Shifting the bits by 12 to output to the Port for the LEDS as they are pins 12-15
-		Write_GPIO_REB_Output(LEDValue);
+		My_Write_GPIO_REB_Output(LEDValue);
 	#endif
 }
 
