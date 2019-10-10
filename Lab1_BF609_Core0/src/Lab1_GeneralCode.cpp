@@ -9,16 +9,6 @@
 #include "adi_initialize.h"
 #include "Lab1_BF609_Core0.h"
 
-#define GARBAGE_VALUE static_cast<unsigned char>(-1) //The garbage value is unsigned -1
-
-//These variables are all declared and initialized to be false to begin until the respective function is called
-//to initialize the respective equipment
-
-static bool My_Init_SwitchInterface_Done = false;
-static bool My_Init_LEDInterface_Done = false;
-static bool My_Init_GPIO_REB_Input_Done = false;
-static bool My_Init_GPIO_REB_Output_Done = false;
-
 void Start_Lab1(void) //Code stub for Start Lab1
 {
 	printf("Here in Start_Lab1\n"); //This is declaring it is the start of Lab 1
@@ -194,7 +184,7 @@ void My_Init_LEDInterface(void) //This function is initializing the LEDs on the 
 
 void My_Init_GPIO_REB_Input(void) //This function is initializing the switches on the Board
 {
-	//printf("Stub for My_Init_GPIO_BoardLEDS() \n");
+	//printf("Stub for My_Init_GPIO_REB_Input() \n");
 	My_Init_GPIO_REB_Input_Done = true;
 
 	#ifdef __ADSPBF609__
@@ -204,7 +194,7 @@ void My_Init_GPIO_REB_Input(void) //This function is initializing the switches o
 
 void My_Init_GPIO_REB_Output(void) //This function is initializing the LEDs on the Board
 {
-	//printf("Stub for My_Init_GPIO_BoardSwitches");
+	//printf("Stub for My_Init_GPIO_REB_Output");
 	My_Init_GPIO_REB_Output_Done = true;
 
 	#ifdef __ADSPBF609__

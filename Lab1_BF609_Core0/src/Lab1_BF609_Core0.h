@@ -13,6 +13,14 @@
 #include "../../ENCM511_SpecificFiles/ENCM511_include/REB_GPIO_Input_Library.h"
 #include "../../ENCM511_SpecificFiles/ENCM511_include/REB_GPIO_Output_Library.h"
 
+#define GARBAGE_VALUE static_cast<unsigned char>(-1) //The garbage value is unsigned -1
+
+//These variables are all declared and initialized to be false to begin until the respective function is called
+//to initialize the respective equipment
+static bool My_Init_SwitchInterface_Done = false;
+static bool My_Init_LEDInterface_Done = false;
+static bool My_Init_GPIO_REB_Input_Done = false;
+static bool My_Init_GPIO_REB_Output_Done = false;
 
 //Initialization Prototypes
 void My_Init_LEDInterface(void);
