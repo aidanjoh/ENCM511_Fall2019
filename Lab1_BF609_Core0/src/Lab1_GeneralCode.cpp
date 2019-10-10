@@ -289,18 +289,18 @@ void WaitTillSwitch1PressedAndReleased() //This function is making sure that Swi
 	while(1)
 	{
 		switchValue = My_ReadSwitches();
-		if(switchValue == 1)
+		if(switchValue == 0x1)
 		{
-			printf("SW 1 was pressed\n");
 			while(1)
 			{
 				switchValue = My_ReadSwitches();
-				if(switchValue != 1)
+				unsigned char bitValue = switchValue & 0x1;
+				if(bitValue == 0x0)
 				{
-					printf("SW 1 was released\n");
-					return;
+					break;
 				}
 			}
+			break;
 		}
 	}
 }
@@ -311,18 +311,18 @@ void WaitTillSwitch2PressedAndReleased() //This function is making sure that Swi
 	while(1)
 	{
 		switchValue = My_ReadSwitches();
-		if(switchValue == 2)
+		if(switchValue == 0x2)
 		{
-			printf("SW 2 was pressed");
 			while(1)
 			{
 				switchValue = My_ReadSwitches();
-				if(switchValue != 2)
+				unsigned char bitValue = switchValue & 0x2;
+				if(bitValue == 0x0)
 				{
-					printf("SW 2 was not released");
-					return;
+					break;
 				}
 			}
+			break;
 		}
 	}
 }
@@ -333,18 +333,18 @@ void WaitTillSwitch3PressedAndReleased() //This function is making sure that Swi
 	while(1)
 	{
 		switchValue = My_ReadSwitches();
-		if(switchValue == 4)
+		if(switchValue == 0x4)
 		{
-			printf("SW 3 was pressed");
 			while(1)
 			{
 				switchValue = My_ReadSwitches();
-				if(switchValue != 4)
+				unsigned char bitValue = switchValue & 0x4;
+				if(bitValue == 0x0)
 				{
-					printf("SW 3 was not released");
-					return;
+					break;
 				}
 			}
+			break;
 		}
 	}
 }
