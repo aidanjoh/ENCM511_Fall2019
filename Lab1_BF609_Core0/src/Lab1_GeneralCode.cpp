@@ -2,7 +2,7 @@
  * Lab1_GeneralCode.cpp
  *
  *  Created on: Oct 8, 2019
- *      Author: aidan
+ *      Author: Aidan and Michele
  */
 
 #include <sys/platform.h>
@@ -40,8 +40,10 @@ void Start_Lab1(void)
 
 	WaitTillSwitch1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
 
-	//The array below holds the hex values for my initials
-	unsigned char intials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
+	//The array below holds the hex values for Aidan's initials
+	unsigned char initials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
+
+	unsigned short int array[4] = {0x0000, 0x0001, 0x0002, 0x0003}; //Array to test the LEDs
 
 	int count = 0; //Creating a counter value
 	unsigned char switchValue = 0; //Creating a value to hold the switch Value
@@ -59,7 +61,10 @@ void Start_Lab1(void)
 	while(1)
 	{
 		initialTime = ReadProcessorCyclesASM();
-		My_WriteLED(intials[count]); //printing initials line by line
+		//My_WriteLED(initials[count]); //printing initials line by line for the front Panel
+
+		My_Write_REB_LED(array[count]);
+
 		count = count + 1; //incrementing the counter
 
 		switchValue = My_ReadSwitches();
@@ -86,38 +91,15 @@ void Start_Lab1(void)
 		}
 
 		//This is making sure the count does not go past the amount of indexes in my intials array
-		if(count == 16)
+		if(count == 4) //was 16 for initials
 		{
 			count = 0;
 		}
 	}
 
-
-/*
-	unsigned char switchValue = My_ReadSwitches();
-
-	if (switchValue != 3)
-	{
-		printf("Bad switch read test -- value was 0x%x \n", switchValue);
-	}
-*/
-
 #endif
 
-// This code I commented out below was for testing the functions at first
-/*
-	unsigned char useLEDValue = 0x42;
-
-	My_WriteLED(useLEDValue);
-
-	unsigned char checkLEDValue = My_ReadLED();
-
-	if (checkLEDValue != useLEDValue)
-	{
-		printf("Bad LED read / write test\n");
-	}
-*/
-
+//This Code was for printing to the front panels by using a for loop
 #if 0
 	for (useLEDValue = 0; useLEDValue <= 0x80; useLEDValue++)
 	{
@@ -132,6 +114,7 @@ void Start_Lab1(void)
 			printf("wrote %d and got back %d \n", useLEDValue, checkLEDValue);
 		}
 	}
+
 #elseif
 	unsigned char intials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
 
@@ -191,6 +174,21 @@ unsigned char My_ReadLED(void) //This function is returning the last LED value w
 	return lastLEDValueWritten;
 }
 
+void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing the values for the REB LEDs
+{
+	//printf("Stub for My_Write_REB_LED() \n");
+
+	if (My_Init_GPIO_REB_Output_Done == false)
+	{
+		printf("LED hardware not ready \n");
+		return;
+	}
+
+	#ifdef __ADSPBF609__
+		Write_GPIO_REB_Output(LEDValue);
+	#endif
+}
+
 void My_WriteLED(unsigned char neededLEDValue) //This function is writing the values to be displayed by the LEDs
 {
 	//printf("Stub for My_WriteLED() \n");
@@ -205,15 +203,8 @@ void My_WriteLED(unsigned char neededLEDValue) //This function is writing the va
 
 	unsigned char binaryArray[9]; //Char array holding the values to print out
 	charToBinary(neededLEDValue, binaryArray); //Calling the char to binary function
+	Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
 
-#if 1
-	Write_GPIO_REB_Output(neededLEDValue); // Writing the value to the Board LEDs
-#endif
-
-	#if 0
-		Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
-	#endif
-	// TODO will have to add the writing to board instead
 	lastLEDValueWritten = neededLEDValue; //Putting the last LED value into the appropriate variable
 
 #else //This is for the 533 emulator

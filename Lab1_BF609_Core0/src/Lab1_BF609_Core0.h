@@ -29,5 +29,6 @@ extern "C" unsigned long long int ReadProcessorCyclesASM(void);
 
 void My_Init_GPIO_REB_Input(void);
 void My_Init_GPIO_REB_Output(void);
+void My_Write_REB_LED(unsigned short int);
 
 #endif /* __LAB1_BF609_CORE0_H__ */
