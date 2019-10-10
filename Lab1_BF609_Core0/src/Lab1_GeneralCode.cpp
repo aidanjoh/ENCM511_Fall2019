@@ -205,8 +205,14 @@ void My_WriteLED(unsigned char neededLEDValue) //This function is writing the va
 
 	unsigned char binaryArray[9]; //Char array holding the values to print out
 	charToBinary(neededLEDValue, binaryArray); //Calling the char to binary function
-	Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
 
+#if 1
+	Write_GPIO_REB_Output(neededLEDValue); // Writing the value to the Board LEDs
+#endif
+
+	#if 0
+		Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
+	#endif
 	// TODO will have to add the writing to board instead
 	lastLEDValueWritten = neededLEDValue; //Putting the last LED value into the appropriate variable
 

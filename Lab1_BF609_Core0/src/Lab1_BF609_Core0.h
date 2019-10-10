@@ -13,7 +13,7 @@
 #include "../../ENCM511_SpecificFiles/ENCM511_include/REB_GPIO_Input_Library.h"
 #include "../../ENCM511_SpecificFiles/ENCM511_include/REB_GPIO_Output_Library.h"
 
-//Prototypes
+//Prototypes for Lab0
 
 void Start_Lab1(void);
 void My_Init_LEDInterface(void);
