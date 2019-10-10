@@ -73,9 +73,9 @@ void Start_Lab1(void)
 		{
 			//WaitTillSwitch1PressedAndReleased();
 			WaitTime = WaitTime / 2; //decreasing the time to wait
-			if(WaitTime == 0)
+			if(WaitTime == 1)
 			{
-				WaitTime = 480000000;
+				WaitTime = WaitTime * 2; //This is here to make sure the wait time does not get too fast
 			}
 		}
 		else if(switchValue == 2)
@@ -185,7 +185,7 @@ void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing th
 	}
 
 	#ifdef __ADSPBF609__
-		LEDValue = LEDValue << 12;
+		LEDValue = LEDValue << 12; //Shifting the bits by 12 to output to the Port for the LEDS as they are pins 12-15
 		Write_GPIO_REB_Output(LEDValue);
 	#endif
 }
