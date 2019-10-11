@@ -14,9 +14,11 @@ void Start_Lab1(void) //Code stub for Start Lab1
 	printf("Here in Start_Lab1\n"); //This is declaring it is the start of Lab 1
 
 	My_Init_SwitchInterface();  //This function is initiating the switches on the panel
-	My_Init_GPIO_REB_Input(); //This function is initiating the switches on the board
+	//My_Init_GPIO_REB_Input(); //This function is initiating the switches on the board
 	My_Init_LEDInterface();  //This function is initiating the LEDS on the panel
-	My_Init_GPIO_REB_Output(); //This function is initiating the LEDs on the board
+	//My_Init_GPIO_REB_Output(); //This function is initiating the LEDs on the board
+
+	My_Init_GPIO_REB(); //This was our own C initializing code for the REB
 
 	printf("Press Switch 1\n"); //Pressing Switch 1 will initiate the Start of the Lab
 

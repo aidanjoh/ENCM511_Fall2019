@@ -23,12 +23,15 @@ static bool My_Init_SwitchInterface_Done = false;
 static bool My_Init_LEDInterface_Done = false;
 static bool My_Init_GPIO_REB_Input_Done = false;
 static bool My_Init_GPIO_REB_Output_Done = false;
+static bool My_Init_GPIO_REB_Done = false;
 
 //Initialization Prototypes
 void My_Init_LEDInterface(void);
 void My_Init_SwitchInterface(void);
+
 void My_Init_GPIO_REB_Input(void);
 void My_Init_GPIO_REB_Output(void);
+void My_Init_GPIO_REB(void); //Our own function for initializing the REB
 
 //Read Prototypes
 unsigned char My_ReadSwitches(void);
