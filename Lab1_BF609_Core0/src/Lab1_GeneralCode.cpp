@@ -86,20 +86,6 @@ unsigned char My_ReadSwitches(void) //This function is reading the switches from
 	printf("Stub for My_ReadSwitches()\n");
 
 	#ifdef __ADSPBF609__
-		#if 1
-			if(My_Init_GPIO_REB_Input_Done == false)
-			{
-				printf("Switch hardware not ready \n");
-				return GARBAGE_VALUE;
-			}
-
-			REB_BITS16 wantedSwitchOnBoardValueActiveHigh = My_Read_GPIO_REB_Input(); //The board is active high
-			return wantedSwitchOnBoardValueActiveHigh;
-
-		#endif
-
-		#if 0
-
 			if (My_Init_SwitchInterface_Done == false)
 			{
 				printf("Switch hardware not ready \n");
@@ -113,11 +99,22 @@ unsigned char My_ReadSwitches(void) //This function is reading the switches from
 			#define MASK_KEEP_LOWER_FIVE_BITS 0x1F // use bit-wise
 			FRONTPANEL_SWITCH_5BIT_VALUE wantedSwitchValueActiveHigh = activeHighValues & MASK_KEEP_LOWER_FIVE_BITS;
 			return wantedSwitchValueActiveHigh;
-		#endif
 	#else
 		return 0x55;
 	#endif
 
+}
+
+unsigned short int My_Read_REB_Switches(void)
+{
+		if(My_Init_GPIO_REB_Input_Done == false)
+		{
+			printf("Switch hardware not ready \n");
+			return GARBAGE_VALUE1;
+		}
+
+		REB_BITS16 wantedSwitchOnBoardValueActiveHigh = My_Read_GPIO_REB_Input(); //The board is active high
+		return wantedSwitchOnBoardValueActiveHigh;
 }
 
 void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing the values for the REB LEDs

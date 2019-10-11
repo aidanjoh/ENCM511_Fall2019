@@ -14,6 +14,7 @@
 #include "../../ENCM511_SpecificFiles/ENCM511_include/REB_GPIO_Output_Library.h"
 
 #define GARBAGE_VALUE static_cast<unsigned char>(-1) //The garbage value is unsigned -1
+#define GARBAGE_VALUE1 static_cast<unsigned short int>(-1) //The Garbage value is unsigned short int -1
 #define MASK_KEEP_BITS_11_TO_8 0x0f00 //This is masking the bit values so we can only have PF8-11
 
 //These variables are all declared and initialized to be false to begin until the respective function is called
@@ -31,6 +32,7 @@ void My_Init_GPIO_REB_Output(void);
 
 //Read Prototypes
 unsigned char My_ReadSwitches(void);
+unsigned short int My_Read_REB_Switches(void);
 unsigned short int My_Read_GPIO_REB_Input(void);
 
 //Write Prototypes
