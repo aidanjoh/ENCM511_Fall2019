@@ -43,9 +43,9 @@ void My_Write_GPIO_REB_Output(unsigned short int);
 //Other Prototypes for Lab 1
 void Start_Lab1(void);
 void charToBinary(unsigned char, unsigned char*);
-void WaitTillSwitch1PressedAndReleased(void);
-void WaitTillSwitch2PressedAndReleased(void);
-void WaitTillSwitch3PressedAndReleased(void);
+void WaitTillSwitchREB1PressedAndReleased(void);
+void WaitTillSwitchREB2PressedAndReleased(void);
+void WaitTillSwitchREB3PressedAndReleased(void);
 extern "C" unsigned long long int ReadProcessorCyclesASM(void);
 
 

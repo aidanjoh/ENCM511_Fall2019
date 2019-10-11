@@ -20,7 +20,7 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 	printf("Press Switch 1\n"); //Pressing Switch 1 will initiate the Start of the Lab
 
-	WaitTillSwitch1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
+	WaitTillSwitchREB1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
 
 	//The array below holds the hex values for Aidan's initials
 	unsigned char initials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
@@ -30,6 +30,7 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 	int count = 0; //Creating a counter value
 	unsigned char switchValue = 0; //Creating a value to hold the switch Value
+	unsigned short int switchREBValue = 0; //Creating a value to hold the switch REB Value
 
 	//Switch 1 has a value of: 0x01
 	//Switch 2 has a value of: 0x02
@@ -50,9 +51,11 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 		count = count + 1; //incrementing the counter
 
-		switchValue = My_ReadSwitches();
+		//switchValue = My_ReadSwitches();
 
-		if(switchValue == 1)
+		switchREBValue = My_Read_REB_Switches();
+
+		if(switchREBValue == 1)
 		{
 			//WaitTillSwitch1PressedAndReleased();
 			WaitTime = WaitTime / 2; //decreasing the time to wait
@@ -61,7 +64,7 @@ void Start_Lab1(void) //Code stub for Start Lab1
 				WaitTime = WaitTime * 2; //This is here to make sure the wait time does not get too fast
 			}
 		}
-		else if(switchValue == 2)
+		else if(switchREBValue == 2)
 		{
 			//WaitTillSwitch2PressedAndReleased();
 			WaitTime = WaitTime * 2; //increasing the time to wait
@@ -211,17 +214,17 @@ void charToBinary(unsigned char charValue, unsigned char* array) //This is my fu
 	array[8] = 0; //To end the string with a null character
 }
 
-void WaitTillSwitch1PressedAndReleased() //This function is making sure that Switch 1 is pressed and released
+void WaitTillSwitchREB1PressedAndReleased() //This function is making sure that Switch REB 1 is pressed and released
 {
-	FRONTPANEL_SWITCH_5BIT_VALUE switchValue = 0;
+	unsigned short int switchValue = 0;
 	while(1)
 	{
-		switchValue = My_ReadSwitches();
+		switchValue = My_Read_REB_Switches();
 		if(switchValue == 0x1)
 		{
 			while(1)
 			{
-				switchValue = My_ReadSwitches();
+				switchValue = My_Read_REB_Switches();
 				unsigned char bitValue = switchValue & 0x1;
 				if(bitValue == 0x0)
 				{
@@ -233,17 +236,17 @@ void WaitTillSwitch1PressedAndReleased() //This function is making sure that Swi
 	}
 }
 
-void WaitTillSwitch2PressedAndReleased() //This function is making sure that Switch 2 is pressed and released
+void WaitTillSwitchREB2PressedAndReleased() //This function is making sure that Switch 2 is pressed and released
 {
-	FRONTPANEL_SWITCH_5BIT_VALUE switchValue = 0;
+	unsigned short int switchValue = 0;
 	while(1)
 	{
-		switchValue = My_ReadSwitches();
+		switchValue = My_Read_REB_Switches();
 		if(switchValue == 0x2)
 		{
 			while(1)
 			{
-				switchValue = My_ReadSwitches();
+				switchValue = My_Read_REB_Switches();
 				unsigned char bitValue = switchValue & 0x2;
 				if(bitValue == 0x0)
 				{
@@ -255,17 +258,17 @@ void WaitTillSwitch2PressedAndReleased() //This function is making sure that Swi
 	}
 }
 
-void WaitTillSwitch3PressedAndReleased() //This function is making sure that Switch 3 is pressed and released
+void WaitTillSwitchREB3PressedAndReleased() //This function is making sure that Switch 3 is pressed and released
 {
-	FRONTPANEL_SWITCH_5BIT_VALUE switchValue = 0;
+	unsigned short int switchValue = 0;
 	while(1)
 	{
-		switchValue = My_ReadSwitches();
+		switchValue = My_Read_REB_Switches();
 		if(switchValue == 0x4)
 		{
 			while(1)
 			{
-				switchValue = My_ReadSwitches();
+				switchValue = My_Read_REB_Switches();
 				unsigned char bitValue = switchValue & 0x4;
 				if(bitValue == 0x0)
 				{
