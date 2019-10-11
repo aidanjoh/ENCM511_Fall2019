@@ -14,11 +14,9 @@ void Start_Lab1(void) //Code stub for Start Lab1
 	printf("Here in Start_Lab1\n"); //This is declaring it is the start of Lab 1
 
 	My_Init_SwitchInterface();  //This function is initiating the switches on the panel
-	//My_Init_GPIO_REB_Input(); //This function is initiating the switches on the board
+	My_Init_GPIO_REB_Input(); //This function is initiating the switches on the board
 	My_Init_LEDInterface();  //This function is initiating the LEDS on the panel
-	//My_Init_GPIO_REB_Output(); //This function is initiating the LEDs on the board
-
-	My_Init_GPIO_REB(); //This was our own C initializing code for the REB
+	My_Init_GPIO_REB_Output(); //This function is initiating the LEDs on the board
 
 	printf("Press Switch 1\n"); //Pressing Switch 1 will initiate the Start of the Lab
 
@@ -112,7 +110,7 @@ unsigned char My_ReadSwitches(void) //This function is reading the switches from
 
 unsigned short int My_Read_REB_Switches(void)
 {
-		if(My_Init_GPIO_REB_Input_Done == false)
+		if(My_Init_GPIO_REB_Input_Done == false) //My_Init_GPIO_REB_Input_Done for his function
 		{
 			printf("Switch hardware not ready \n");
 			return GARBAGE_VALUE1;
@@ -126,7 +124,7 @@ void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing th
 {
 	//printf("Stub for My_Write_REB_LED() \n");
 
-	if (My_Init_GPIO_REB_Output_Done == false)
+	if (My_Init_GPIO_REB_Output_Done == false) // My_Init_GPIO_REB_Output_Done for his function
 	{
 		printf("LED hardware not ready \n");
 		return;
@@ -186,7 +184,7 @@ void My_Init_GPIO_REB_Input(void) //This function is initializing the switches o
 	My_Init_GPIO_REB_Input_Done = true;
 
 	#ifdef __ADSPBF609__
-		Init_GPIO_REB_Input();
+		My_Init_GPIO_REB_InputCpp();
 	#endif
 }
 
@@ -196,7 +194,7 @@ void My_Init_GPIO_REB_Output(void) //This function is initializing the LEDs on t
 	My_Init_GPIO_REB_Output_Done = true;
 
 	#ifdef __ADSPBF609__
-		Init_GPIO_REB_Output();
+		My_Init_GPIO_REB_OutputCpp();
 	#endif
 }
 

@@ -31,7 +31,8 @@ void My_Init_SwitchInterface(void);
 
 void My_Init_GPIO_REB_Input(void);
 void My_Init_GPIO_REB_Output(void);
-void My_Init_GPIO_REB(void); //Our own function for initializing the REB
+void My_Init_GPIO_REB_InputCpp(void); //Our own function for initializing the REB
+void My_Init_GPIO_REB_OutputCpp(void); //Our own function for initializing the REB
 
 //Read Prototypes
 unsigned char My_ReadSwitches(void);
