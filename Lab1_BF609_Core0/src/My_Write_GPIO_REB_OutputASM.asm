@@ -10,17 +10,17 @@
 	.section L1_data;
 	
 	.section program;
-	.global _My_Write_GPIO_OutputASM;
+	.global _My_Write_GPIO_REB_OutputASM;
 
 	#define returnValue_R0 R0
 	#define MaskBitValues11to0 0x0fff
 	
-_My_Write_GPIO_OutputASM:
+_My_Write_GPIO_REB_OutputASM:
 	LINK 20;
 	
 	R1 = MaskBitValues11to0;
 	P0.L = lo(REG_PORTF_DATA);
-	P0.h = hi(REG_PORTF_DATA);
+	P0.H = hi(REG_PORTF_DATA);
 	
 	R2 = W[P0](Z);
 	R3 = MaskBitValues11to0;
@@ -31,9 +31,9 @@ _My_Write_GPIO_OutputASM:
 	
 	returnValue_R0 = returnValue_R0 | R2;
 	
-	P0 = returnValue_R0;
+	[P0] = returnValue_R0;
 	
 	UNLINK;
 
-_My_Write_GPIO_OutputASM.END:
+_My_Write_GPIO_REB_OutputASM.END:
 	RTS;

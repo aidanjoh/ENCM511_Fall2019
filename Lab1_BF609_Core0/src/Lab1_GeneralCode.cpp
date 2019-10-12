@@ -131,7 +131,7 @@ void My_Write_REB_LED(unsigned short int LEDValue) //This function is writing th
 	}
 
 	#ifdef __ADSPBF609__
-		My_Write_GPIO_REB_Output(LEDValue);
+		My_Write_GPIO_REB_OutputASM(LEDValue);
 	#endif
 }
 
