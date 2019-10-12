@@ -53,9 +53,14 @@ void charToBinary(unsigned char, unsigned char*);
 void WaitTillSwitchREB1PressedAndReleased(void);
 void WaitTillSwitchREB2PressedAndReleased(void);
 void WaitTillSwitchREB3PressedAndReleased(void);
+
+//extern "C" means that you are declaring these functions and they can be used in a different file as the compiler knows they are in an external file
+//Pretty much they act in this case as global functions and are declared below
+
 extern "C" unsigned long long int ReadProcessorCyclesASM(void);
 extern "C" void My_Write_GPIO_REB_OutputASM(unsigned short int);
 extern "C" unsigned short int My_Read_GPIO_REB_InputASM(void);
+extern "C" void My_Init_GPIO_REB_InputASM(void);
 
 
 #endif /* __LAB1_BF609_CORE0_H__ */
