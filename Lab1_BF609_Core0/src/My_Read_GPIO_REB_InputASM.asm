@@ -5,7 +5,6 @@
  *      Author: aidan
  */
 #include <blackfin.h>
-#include "Lab1_BF609_Core0.h"
 
 	.section L1_data;
 	
@@ -13,6 +12,7 @@
 	.global _My_Read_GPIO_REB_InputASM;
 
 	#define returnValue_R0 R0
+	#define MASK_KEEP_BITS_11_TO_8 0x0f00
 	
 _My_Read_GPIO_REB_InputASM:
 	LINK 20;

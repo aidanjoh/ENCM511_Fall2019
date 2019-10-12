@@ -55,6 +55,7 @@ void WaitTillSwitchREB2PressedAndReleased(void);
 void WaitTillSwitchREB3PressedAndReleased(void);
 extern "C" unsigned long long int ReadProcessorCyclesASM(void);
 extern "C" void My_Write_GPIO_REB_OutputASM(unsigned short int);
+extern "C" unsigned short int My_Read_GPIO_REB_InputASM(void);
 
 
 #endif /* __LAB1_BF609_CORE0_H__ */
