@@ -18,15 +18,18 @@ void Start_Lab1(void) //Code stub for Start Lab1
 	My_Init_LEDInterface();  //This function is initiating the LEDS on the panel
 	My_Init_GPIO_REB_Output(); //This function is initiating the LEDs on the board
 
-	printf("Press Switch 1\n"); //Pressing Switch 1 will initiate the Start of the Lab
+	printf("Please Press Switch 1 to Begin the Lab\n"); //Pressing Switch 1 will initiate the Start of the Lab
 
 	WaitTillSwitchREB1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
 
 	//The array below holds the hex values for Aidan's initials
 	unsigned char initials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
 
-	//The array below holds random short int value to display the LED lights
+	//The array below holds random short integer value to display the LED lights
 	unsigned short int array[4] = {0x0000, 0x0001, 0x0002, 0x0003}; //Array to test the LEDs
+
+	//The array below will be the array that will be filled by the hardware from switch pressing
+	unsigned short int hardwareFilledArray[100];
 
 	int count = 0; //Creating a counter value
 	unsigned char switchValue = 0; //Creating a value to hold the switch Value
@@ -41,9 +44,13 @@ void Start_Lab1(void) //Code stub for Start Lab1
 	unsigned long long int WaitTime = 480000000; //The wait time was selected to be 1 second which is equal to 480000000 processor cycles
 	unsigned long long int time; //This variable will hold the time
 
-
 	while(1)
 	{
+		//if(switchREBValue == 2 || switchREBValue == 3)
+			//do lab 1 code
+		//else if(switchREBValue == 1 || switchREBValue == 0)
+			//do lab 0 code where the speed control will be done by the frontpanel switches and can be reset back to this choice by pressing SW5
+
 		initialTime = ReadProcessorCyclesASM();
 		//My_WriteLED(initials[count]); //printing initials line by line for the front Panel
 
