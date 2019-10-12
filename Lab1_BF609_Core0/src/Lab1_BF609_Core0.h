@@ -16,6 +16,8 @@
 #define GARBAGE_VALUE static_cast<unsigned char>(-1) //The garbage value is unsigned -1
 #define GARBAGE_VALUE1 static_cast<unsigned short int>(-1) //The Garbage value is unsigned short int -1
 #define MASK_KEEP_BITS_11_TO_8 0x0f00 //This is masking the bit values so we can only have PF8-11
+#define MaskBits15to12And7to0 0xf0ff
+#define MaskBits11to0 0x0fff
 
 //These variables are all declared and initialized to be false to begin until the respective function is called
 //to initialize the respective equipment
@@ -24,6 +26,7 @@ static bool My_Init_LEDInterface_Done = false;
 static bool My_Init_GPIO_REB_Input_Done = false;
 static bool My_Init_GPIO_REB_Output_Done = false;
 static bool My_Init_GPIO_REB_Done = false;
+static bool reset = false; //This variable is going to reset the operations back to choosing between Lab1 or Lab0
 
 //Initialization Prototypes
 void My_Init_LEDInterface(void);
