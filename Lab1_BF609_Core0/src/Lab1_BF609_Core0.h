@@ -48,6 +48,7 @@ void My_Write_REB_LED(unsigned short int);
 void My_Write_GPIO_REB_Output(unsigned short int);
 
 //Other Prototypes for Lab 1
+void Start_Lab0(void);
 void Start_Lab1(void);
 void charToBinary(unsigned char, unsigned char*);
 void WaitTillSwitchREB1PressedAndReleased(void);

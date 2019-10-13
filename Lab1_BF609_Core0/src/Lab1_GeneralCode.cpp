@@ -46,11 +46,18 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 	while(1)
 	{
-		//if(switchREBValue == 2 || switchREBValue == 3)
-			//do lab 1 code
-		//else if(switchREBValue == 1 || switchREBValue == 0)
-			//do lab 0 code where the speed control will be done by the frontpanel switches and can be reset back to this choice by pressing SW5
+		switchValue = My_ReadSwitches();
+		switchREBValue = My_Read_REB_Switches();
 
+		if(switchValue == 0x1 || switchREBValue == 0x1)
+		{
+			Start_Lab0(void);
+		}
+		else if(switchValue == 0x2 || switchREBValue == 0x2)
+		{
+			//do lab 0 code where the speed control will be done by the frontpanel switches and can be reset back to this choice by pressing SW5
+		}
+		else if(switchValue == 0x2 || switchREBValue == 0x2)
 		initialTime = ReadProcessorCyclesASM();
 		//My_WriteLED(initials[count]); //printing initials line by line for the front Panel
 
@@ -58,9 +65,6 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 		count = count + 1; //incrementing the counter
 
-		//switchValue = My_ReadSwitches();
-
-		switchREBValue = My_Read_REB_Switches();
 
 		if(switchREBValue == 1)
 		{
@@ -123,7 +127,7 @@ unsigned short int My_Read_REB_Switches(void)
 			return GARBAGE_VALUE1;
 		}
 
-		REB_BITS16 wantedSwitchOnBoardValueActiveHigh = My_Read_GPIO_REB_Input(); //The board is active high
+		REB_BITS16 wantedSwitchOnBoardValueActiveHigh = My_Read_GPIO_REB_InputASM(); //The board is active high
 		return wantedSwitchOnBoardValueActiveHigh;
 }
 
