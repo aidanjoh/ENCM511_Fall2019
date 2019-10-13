@@ -51,13 +51,14 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 		if(switchValue == 0x1 || switchREBValue == 0x1)
 		{
-			Start_Lab0(void);
+			Start_Lab0();
 		}
 		else if(switchValue == 0x2 || switchREBValue == 0x2)
 		{
 			//do lab 0 code where the speed control will be done by the frontpanel switches and can be reset back to this choice by pressing SW5
 		}
-		else if(switchValue == 0x2 || switchREBValue == 0x2)
+		else
+
 		initialTime = ReadProcessorCyclesASM();
 		//My_WriteLED(initials[count]); //printing initials line by line for the front Panel
 
@@ -366,3 +367,58 @@ void WaitTillSwitch3PressedAndReleased() //This function is making sure that Swi
 	}
 }
 
+void Start_Lab0()
+{
+	printf("Here in Start_Lab0\n");
+
+	My_Init_SwitchInterface();
+	My_Init_LEDInterface();
+
+	printf("Press Switch 1\n");
+
+	WaitTillSwitch1PressedAndReleased();
+	unsigned char intials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
+	int count = 0;
+	unsigned char switchValue = 0;
+
+	unsigned long long int intialTime;
+	unsigned long long int WaitTime = 480000000;
+	unsigned long long int time;
+
+
+	while(1)
+	{
+		intialTime = ReadProcessorCyclesASM();
+		My_WriteLED(intials[count]); //printing intials line by line
+		count = count + 1; //incrementing the counter
+
+		switchValue = My_ReadSwitches();
+
+		if(switchValue == 1)
+		{
+			//WaitTillSwitch1PressedAndReleased();
+			WaitTime = WaitTime / 2; //decreasing the time to wait
+			if(WaitTime == 0)
+			{
+				WaitTime = 480000000;
+			}
+		}
+		else if(switchValue == 2)
+		{
+			//WaitTillSwitch2PressedAndReleased();
+			WaitTime = WaitTime * 2; //increasing the time to wait
+		}
+
+		time = ReadProcessorCyclesASM();
+		while(time < intialTime + WaitTime)
+		{
+			time = ReadProcessorCyclesASM();
+		}
+
+		//This is making sure the count does not go past the amount of indexes in my intials array
+		if(count == 16)
+		{
+			count = 0;
+		}
+	}
+}

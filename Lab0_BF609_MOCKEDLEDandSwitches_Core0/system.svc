@@ -25,26 +25,26 @@ It provides information needed to link your code. It can be used to configure me
 			<startup_ldf-configuration>
 				<crt_and_ldf>
 					<propertygroup name="">
-						<property name="si_revision" value="any"/>
+						<property name="si_revision" value=""/>
 						<property name="processor" value="ADSP-BF609"/>
 						<property name="product_name" value="CrossCore(R) Embedded Studio"/>
 						<property name="crt_doj" value="app_startup.doj"/>
 						<property name="crt_output" value="app_startup.s"/>
 						<property name="ldf_output" value="app.ldf"/>
 					</propertygroup>
-					<propertygroup name="template_schemas" value="true">
+					<propertygroup name="template_schemas" value="">
 						<property name="ldf_schema" value="29.02"/>
 						<property name="startup_code_schema" value="28.01"/>
 					</propertygroup>
 					<crt>
-						<propertygroup name="cplb_init" value="true">
+						<propertygroup name="cplb_init" value="">
 							<property name="cplb_src_file" value="app_cplbtab.c"/>
 							<property name="cplb_ctrl" value="57"/>
 							<property name="cplb_obj_file" value="app_cplbtab.doj"/>
 							<property name="cplb_src_alt" value="false"/>
 						</propertygroup>
 						<propertygroup name="mem_init" value="false"/>
-						<propertygroup name="use_multicores" value="2">
+						<propertygroup name="use_multicores" value="">
 							<property name="use_core" value="0"/>
 						</propertygroup>
 						<propertygroup name="int_handlers" value="96">
