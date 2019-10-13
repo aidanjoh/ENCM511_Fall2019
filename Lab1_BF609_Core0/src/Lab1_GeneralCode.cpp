@@ -22,15 +22,6 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 	WaitTillSwitchREB1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
 
-	//The array below holds the hex values for Aidan's initials
-	unsigned char initials[15] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0};
-
-	//The array below holds random short integer value to display the LED lights
-	unsigned short int array[4] = {0x0000, 0x0001, 0x0002, 0x0003}; //Array to test the LEDs
-
-	//The array below will be the array that will be filled by the hardware from switch pressing
-	unsigned short int hardwareFilledArray[100];
-
 	int count = 0; //Creating a counter value
 	unsigned char switchValue = 0; //Creating a value to hold the switch Value
 	unsigned short int switchREBValue = 0; //Creating a value to hold the switch REB Value
@@ -55,43 +46,12 @@ void Start_Lab1(void) //Code stub for Start Lab1
 		}
 		else if(switchValue == 0x2 || switchREBValue == 0x2)
 		{
-			//do lab 0 code where the speed control will be done by the frontpanel switches and can be reset back to this choice by pressing SW5
+			Start_PreLab1();
 		}
-		else
-
-		initialTime = ReadProcessorCyclesASM();
-		//My_WriteLED(initials[count]); //printing initials line by line for the front Panel
-
-		My_Write_REB_LED(array[count]);
-
-		count = count + 1; //incrementing the counter
-
-
-		if(switchREBValue == 1)
+		else if(switchValue == 0x4 || switchREBValue == 0x4)
 		{
-			//WaitTillSwitch1PressedAndReleased();
-			WaitTime = WaitTime / 2; //decreasing the time to wait
-			if(WaitTime == 1)
-			{
-				WaitTime = WaitTime * 2; //This is here to make sure the wait time does not get too fast
-			}
-		}
-		else if(switchREBValue == 2)
-		{
-			//WaitTillSwitch2PressedAndReleased();
-			WaitTime = WaitTime * 2; //increasing the time to wait
-		}
 
-		time = ReadProcessorCyclesASM();
-		while(time < initialTime + WaitTime)
-		{
-			time = ReadProcessorCyclesASM();
-		}
 
-		//This is making sure the count does not go past the amount of indexes in my intials array
-		if(count == 4) //was 16 for initials
-		{
-			count = 0;
 		}
 	}
 }
@@ -417,6 +377,62 @@ void Start_Lab0()
 
 		//This is making sure the count does not go past the amount of indexes in my intials array
 		if(count == 16)
+		{
+			count = 0;
+		}
+	}
+}
+
+void Start_PreLab1(void) //Code stub for Start Lab1
+{
+	printf("Here in Start_PreLab1\n"); //This is declaring it is the start of Lab 1
+	printf("Please Press Switch 1 to Begin the PreLab\n"); //Pressing Switch 1 will initiate the Start of the Lab
+
+	WaitTillSwitchREB1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
+
+	//The array below holds random short integer value to display the LED lights
+	unsigned short int softwarearray[4] = {0x0008, 0x0004, 0x0002, 0x0001}; //Array to test the LEDs
+
+	int count = 0; //Creating a counter value
+	unsigned short int switchREBValue = 0; //Creating a value to hold the switch REB Value
+
+	unsigned long long int initialTime; //This variable will hold the initial Time
+	unsigned long long int WaitTime = 480000000; //The wait time was selected to be 1 second which is equal to 480000000 processor cycles
+	unsigned long long int time; //This variable will hold the time
+
+	while(1)
+	{
+		switchREBValue = My_Read_REB_Switches();
+
+		initialTime = ReadProcessorCyclesASM();
+
+		My_Write_REB_LED(softwarearray[count]);
+
+		count = count + 1; //incrementing the counter
+
+		if(switchREBValue == 1)
+		{
+			//WaitTillSwitch1PressedAndReleased();
+			WaitTime = WaitTime / 2; //decreasing the time to wait
+			if(WaitTime == 1)
+			{
+				WaitTime = WaitTime * 2; //This is here to make sure the wait time does not get too fast
+			}
+		}
+		else if(switchREBValue == 2)
+		{
+			//WaitTillSwitch2PressedAndReleased();
+			WaitTime = WaitTime * 2; //increasing the time to wait
+		}
+
+		time = ReadProcessorCyclesASM();
+		while(time < initialTime + WaitTime)
+		{
+			time = ReadProcessorCyclesASM();
+		}
+
+		//This is making sure the count does not go past the amount of indexes in my intials array
+		if(count == 4) //was 16 for initials
 		{
 			count = 0;
 		}
