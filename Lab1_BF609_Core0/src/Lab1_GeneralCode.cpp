@@ -191,7 +191,12 @@ void My_Init_GPIO_REB_Input(void) //This function is initializing the switches o
 	My_Init_GPIO_REB_Input_Done = true;
 
 	#ifdef __ADSPBF609__
+#if 0
 		My_Init_GPIO_REB_InputCpp();
+#else
+		My_Init_GPIO_REB_InputASM();
+#endif
+
 	#endif
 }
 
@@ -201,7 +206,11 @@ void My_Init_GPIO_REB_Output(void) //This function is initializing the LEDs on t
 	My_Init_GPIO_REB_Output_Done = true;
 
 	#ifdef __ADSPBF609__
+#if 0
 		My_Init_GPIO_REB_OutputCpp();
+#else
+		My_Init_GPIO_REB_OutputASM();
+#endif
 	#endif
 }
 
