@@ -361,3 +361,4 @@ void WaitTillSwitch3PressedAndReleased() //This function is making sure that Swi
 		}
 	}
 }
+
