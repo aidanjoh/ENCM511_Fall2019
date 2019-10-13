@@ -252,7 +252,7 @@ void WaitTillSwitchREB1PressedAndReleased() //This function is making sure that 
 	}
 }
 
-void WaitTillSwitchREB2PressedAndReleased() //This function is making sure that Switch 2 is pressed and released
+void WaitTillSwitchREB2PressedAndReleased() //This function is making sure that Switch REB 2 is pressed and released
 {
 	unsigned short int switchValue = 0;
 	while(1)
@@ -274,7 +274,7 @@ void WaitTillSwitchREB2PressedAndReleased() //This function is making sure that 
 	}
 }
 
-void WaitTillSwitchREB3PressedAndReleased() //This function is making sure that Switch 3 is pressed and released
+void WaitTillSwitchREB3PressedAndReleased() //This function is making sure that Switch REB 3 is pressed and released
 {
 	unsigned short int switchValue = 0;
 	while(1)
@@ -285,6 +285,72 @@ void WaitTillSwitchREB3PressedAndReleased() //This function is making sure that 
 			while(1)
 			{
 				switchValue = My_Read_REB_Switches();
+				unsigned char bitValue = switchValue & 0x4;
+				if(bitValue == 0x0)
+				{
+					break;
+				}
+			}
+			break;
+		}
+	}
+}
+
+void WaitTillSwitch1PressedAndReleased() //This function is making sure that Switch 1 is pressed and released
+{
+	unsigned char switchValue = 0;
+	while(1)
+	{
+		switchValue = My_ReadSwitches();
+		if(switchValue == 0x1)
+		{
+			while(1)
+			{
+				switchValue = My_ReadSwitches();
+				unsigned char bitValue = switchValue & 0x1;
+				if(bitValue == 0x0)
+				{
+					break;
+				}
+			}
+			break;
+		}
+	}
+}
+
+void WaitTillSwitch2PressedAndReleased() //This function is making sure that Switch 2 is pressed and released
+{
+	unsigned char switchValue = 0;
+	while(1)
+	{
+		switchValue = My_ReadSwitches();
+		if(switchValue == 0x2)
+		{
+			while(1)
+			{
+				switchValue = My_ReadSwitches();
+				unsigned char bitValue = switchValue & 0x2;
+				if(bitValue == 0x0)
+				{
+					break;
+				}
+			}
+			break;
+		}
+	}
+}
+
+void WaitTillSwitch3PressedAndReleased() //This function is making sure that Switch 3 is pressed and released
+{
+	unsigned char switchValue = 0;
+	while(1)
+	{
+		switchValue = My_ReadSwitches();
+		if(switchValue == 0x4)
+		{
+			while(1)
+			{
+				switchValue = My_ReadSwitches();
 				unsigned char bitValue = switchValue & 0x4;
 				if(bitValue == 0x0)
 				{
