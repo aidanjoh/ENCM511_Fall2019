@@ -54,6 +54,9 @@ void charToBinary(unsigned char, unsigned char*);
 void WaitTillSwitchREB1PressedAndReleased(void);
 void WaitTillSwitchREB2PressedAndReleased(void);
 void WaitTillSwitchREB3PressedAndReleased(void);
+void WaitTillSwitch1PressedAndReleased(void);
+void WaitTillSwitch2PressedAndReleased(void);
+void WaitTillSwitch3PressedAndReleased(void);
 
 //extern "C" means that you are declaring these functions and they can be used in a different file as the compiler knows they are in an external file
 //Pretty much they act in this case as global functions and are declared below
