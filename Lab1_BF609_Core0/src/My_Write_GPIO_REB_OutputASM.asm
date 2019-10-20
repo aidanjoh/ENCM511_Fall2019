@@ -25,11 +25,10 @@ _My_Write_GPIO_REB_OutputASM:
 	P0.H = hi(REG_PORTF_DATA);
 	
 	R2 = W[P0](Z); //Putting the value for the port F register into the R2 register (this is reading the values)
-	R3 = MaskBitValues11to0; //Putting the mask value into the register R3
 	
 	returnValue_R0 = returnValue_R0 << 12; //Shifting the value for the LEDs up to the output pins
 	
-	R2 = R2 & R3; //Masking the port F register
+	R2 = R2 & R1; //Masking the port F register
 	
 	returnValue_R0 = returnValue_R0 | R2; //Oring the port F register with the correct value for the LED outputs
 	
