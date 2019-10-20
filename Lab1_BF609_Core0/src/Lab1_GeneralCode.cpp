@@ -39,6 +39,8 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 	while(1)
 	{
+		reset = false;
+		printf("Press Switch 1 for Lab0, Press Switch 2 for PreLab1 and Press Switch 3 for Lab 1 \n");
 		switchValue = My_ReadSwitches();
 		switchREBValue = My_Read_REB_Switches();
 
@@ -52,14 +54,19 @@ void Start_Lab1(void) //Code stub for Start Lab1
 		}
 		else if(switchValue == 0x4 || switchREBValue == 0x4)
 		{
-			while(1)
+			while(!reset)
 			{
 				printf("Starting HardWare Fill \n");
-				while(1) //This loop is accumulating all the switches pressed and recorded to fill the hardWareArray
+				while(!reset) //This loop is accumulating all the switches pressed and recorded to fill the hardWareArray
 				{
 					switchREBValue = My_Read_REB_Switches(); //This is reading the switch value pressed
 
 					switchValue = My_ReadSwitches();  //This is reading if a front panel switch was pressed
+
+					if (switchValue == 0x10)
+					{
+						reset = true;
+					}
 
 					if (switchValue == 0x01) //0x01 is switch 1 on front panel which when pressed will record the value
 					{
@@ -83,9 +90,15 @@ void Start_Lab1(void) //Code stub for Start Lab1
 					}
 				}
 
-				while(1)
+				while(!reset)
 				{
 					switchREBValue = My_Read_REB_Switches();
+					switchValue = My_ReadSwitches();
+
+					if (switchValue == 0x10)
+					{
+						reset = true;
+					}
 
 					initialTime = ReadProcessorCyclesASM();
 					My_Write_REB_LED(hardWareArray[count]);
@@ -399,10 +412,6 @@ void WaitTillSwitch3PressedAndReleased() //This function is making sure that Swi
 void Start_Lab0()
 {
 	printf("Here in Start_Lab0\n");
-
-	My_Init_SwitchInterface();
-	My_Init_LEDInterface();
-
 	printf("Press Switch 1\n");
 
 	WaitTillSwitch1PressedAndReleased();
@@ -410,18 +419,24 @@ void Start_Lab0()
 	int count = 0;
 	unsigned char switchValue = 0;
 
+	//Variables to Control time
 	unsigned long long int intialTime;
 	unsigned long long int WaitTime = 480000000;
 	unsigned long long int time;
 
 
-	while(1)
+	while(!reset)
 	{
 		intialTime = ReadProcessorCyclesASM();
 		My_WriteLED(intials[count]); //printing intials line by line
 		count = count + 1; //incrementing the counter
 
 		switchValue = My_ReadSwitches();
+
+		if (switchValue == 0x10)
+		{
+			reset = true;
+		}
 
 		if(switchValue == 1)
 		{
@@ -464,20 +479,26 @@ void Start_PreLab1(void) //Code stub for Start Lab1
 
 	int count = 0; //Creating a counter value
 	unsigned short int switchREBValue = 0; //Creating a value to hold the switch REB Value
+	unsigned char switchValue = 0; //Creating a value to read FP switch for the reset
 
 	unsigned long long int initialTime; //This variable will hold the initial Time
 	unsigned long long int WaitTime = 480000000; //The wait time was selected to be 1 second which is equal to 480000000 processor cycles
 	unsigned long long int time; //This variable will hold the time
 
-	while(1)
+	while(!reset)
 	{
 		switchREBValue = My_Read_REB_Switches();
+		switchValue = My_ReadSwitches();
 
 		initialTime = ReadProcessorCyclesASM();
-
 		My_Write_REB_LED(softwarearray[count]);
 
 		count = count + 1; //incrementing the counter
+
+		if (switchValue == 0x10)
+		{
+			reset = true;
+		}
 
 		if(switchREBValue == 1)
 		{
