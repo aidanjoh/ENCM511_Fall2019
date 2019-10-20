@@ -23,7 +23,8 @@ void Start_Lab1(void) //Code stub for Start Lab1
 	WaitTillSwitchREB1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
 
 	int count = 0; //Creating a counter value
-	int i = 0;
+	int i = 0;  //Creating a counter variable for the for loop
+	unsigned short int hardWareArray [100]; //This is the hardWareArray that will hold the SW values that are pressed
 	unsigned char switchValue = 0; //Creating a value to hold the switch Value
 	unsigned short int switchREBValue = 0; //Creating a value to hold the switch REB Value
 
@@ -51,18 +52,82 @@ void Start_Lab1(void) //Code stub for Start Lab1
 		}
 		else if(switchValue == 0x4 || switchREBValue == 0x4)
 		{
-			for(i=0; i < 99; i++)
+			while(1)
 			{
-				//switchValue
-			}
+				printf("Starting HardWare Fill \n");
+				while(1) //This loop is accumulating all the switches pressed and recorded to fill the hardWareArray
+				{
+					switchREBValue = My_Read_REB_Switches(); //This is reading the switch value pressed
 
+					switchValue = My_ReadSwitches();  //This is reading if a front panel switch was pressed
+
+					if (switchValue == 0x01) //0x01 is switch 1 on front panel which when pressed will record the value
+					{
+						WaitTillSwitch1PressedAndReleased();
+						hardWareArray[i] = switchREBValue; //Filling the hardWareArray with the switch value
+						printf("Filling HardwareArray \n");
+						count++;
+						i++;
+					}
+					else if (switchValue == 0x08) //0x08 is switch 4 on front panel which when pressed will record the value
+					{
+						count = 0;
+						break;
+					}
+
+					if(i > 99)
+					{
+						printf("The hardWareArray has now been filled \n");
+						count = 0;
+						break;
+					}
+				}
+
+				while(1)
+				{
+					switchREBValue = My_Read_REB_Switches();
+
+					initialTime = ReadProcessorCyclesASM();
+					My_Write_REB_LED(hardWareArray[count]);
+
+					count = count + 1; //incrementing the counter by 1
+
+					if(switchREBValue == 1)
+					{
+						//WaitTillSwitch1PressedAndReleased();
+						WaitTime = WaitTime / 2; //decreasing the time to wait
+						if(WaitTime == 1)
+						{
+							WaitTime = WaitTime * 2; //This is here to make sure the wait time does not get too fast
+						}
+					}
+					else if(switchREBValue == 2)
+					{
+						//WaitTillSwitch2PressedAndReleased();
+						WaitTime = WaitTime * 2; //increasing the time to wait
+					}
+
+					time = ReadProcessorCyclesASM();
+					while(time < initialTime + WaitTime)
+					{
+						time = ReadProcessorCyclesASM();
+					}
+
+					//This is making sure the count does not go past the amount of indexes in the hardWare array
+					if(count > i)
+					{
+						count = 0;
+					}
+				}
+
+			}
 		}
 	}
 }
 
 unsigned char My_ReadSwitches(void) //This function is reading the switches from the panel
 {
-	printf("Stub for My_ReadSwitches()\n");
+	//printf("Stub for My_ReadSwitches()\n");
 
 	#ifdef __ADSPBF609__
 			if (My_Init_SwitchInterface_Done == false)
