@@ -23,6 +23,7 @@ void Start_Lab1(void) //Code stub for Start Lab1
 	WaitTillSwitchREB1PressedAndReleased(); //This function is in place to make sure that switch 1 was pressed and then released
 
 	int count = 0; //Creating a counter value
+	int i = 0;
 	unsigned char switchValue = 0; //Creating a value to hold the switch Value
 	unsigned short int switchREBValue = 0; //Creating a value to hold the switch REB Value
 
@@ -50,7 +51,10 @@ void Start_Lab1(void) //Code stub for Start Lab1
 		}
 		else if(switchValue == 0x4 || switchREBValue == 0x4)
 		{
-
+			for(i=0; i < 99; i++)
+			{
+				//switchValue
+			}
 
 		}
 	}
