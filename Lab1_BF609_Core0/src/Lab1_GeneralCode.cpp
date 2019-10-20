@@ -54,9 +54,12 @@ void Start_Lab1(void) //Code stub for Start Lab1
 		}
 		else if(switchValue == 0x4 || switchREBValue == 0x4)
 		{
+			WaitTillSwitchREB3PressedAndReleased();
 			while(!reset)
 			{
 				printf("Starting HardWare Fill \n");
+				i = 0;
+				count = 0;
 				while(!reset) //This loop is accumulating all the switches pressed and recorded to fill the hardWareArray
 				{
 					switchREBValue = My_Read_REB_Switches(); //This is reading the switch value pressed
@@ -107,7 +110,7 @@ void Start_Lab1(void) //Code stub for Start Lab1
 
 					if(switchREBValue == 1)
 					{
-						//WaitTillSwitch1PressedAndReleased();
+						WaitTillSwitchREB1PressedAndReleased();
 						WaitTime = WaitTime / 2; //decreasing the time to wait
 						if(WaitTime == 1)
 						{
@@ -116,7 +119,7 @@ void Start_Lab1(void) //Code stub for Start Lab1
 					}
 					else if(switchREBValue == 2)
 					{
-						//WaitTillSwitch2PressedAndReleased();
+						WaitTillSwitchREB2PressedAndReleased();
 						WaitTime = WaitTime * 2; //increasing the time to wait
 					}
 
@@ -440,7 +443,7 @@ void Start_Lab0()
 
 		if(switchValue == 1)
 		{
-			//WaitTillSwitch1PressedAndReleased();
+			WaitTillSwitch1PressedAndReleased();
 			WaitTime = WaitTime / 2; //decreasing the time to wait
 			if(WaitTime == 0)
 			{
@@ -449,7 +452,7 @@ void Start_Lab0()
 		}
 		else if(switchValue == 2)
 		{
-			//WaitTillSwitch2PressedAndReleased();
+			WaitTillSwitch2PressedAndReleased();
 			WaitTime = WaitTime * 2; //increasing the time to wait
 		}
 
@@ -502,7 +505,7 @@ void Start_PreLab1(void) //Code stub for Start Lab1
 
 		if(switchREBValue == 1)
 		{
-			//WaitTillSwitch1PressedAndReleased();
+			WaitTillSwitchREB1PressedAndReleased();
 			WaitTime = WaitTime / 2; //decreasing the time to wait
 			if(WaitTime == 1)
 			{
@@ -511,7 +514,7 @@ void Start_PreLab1(void) //Code stub for Start Lab1
 		}
 		else if(switchREBValue == 2)
 		{
-			//WaitTillSwitch2PressedAndReleased();
+			WaitTillSwitchREB2PressedAndReleased();
 			WaitTime = WaitTime * 2; //increasing the time to wait
 		}
 

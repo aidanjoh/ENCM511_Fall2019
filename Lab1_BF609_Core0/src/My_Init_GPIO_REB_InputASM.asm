@@ -13,6 +13,9 @@
 
 	#define returnValue_R0 R0
 	#define MASK_KEEP_BITS_11_TO_8 0x0f00
+	#define SETTING_TO_ALL_ZEROS 0x0000
+	#define MASK_KEEP_BITS_15_TO_12_AND_7_TO_0 0xf0ff
+	#define SETTING_BITS_11_TO_8_ALL_ONES 0x0f00
 	
 _My_Init_GPIO_REB_InputASM:
 	LINK 20;
@@ -21,12 +24,10 @@ _My_Init_GPIO_REB_InputASM:
 	P0.L = lo(REG_PORTF_DATA);
 	P0.H = hi(REG_PORTF_DATA);
 	
-	R1 = 0x0000;
+	R1 = SETTING_TO_ALL_ZEROS;
 	[P0] = R1; //This is intializing the data register with all zeros to begin with
 	
-	R1 = 0x0f00;
-	
-	R2 = 0xf0ff(Z);
+	R2 = MASK_KEEP_BITS_15_TO_12_AND_7_TO_0(Z);
 	
 	//This code is storing the value in the port F enabled register into the pointer register P0
 	P0.L = lo(REG_PORTF_INEN);
@@ -38,6 +39,8 @@ _My_Init_GPIO_REB_InputASM:
 	
 	R3 = W[P0](Z);
 
+	R1 = SETTING_BITS_11_TO_8_ALL_ONES;
+
 	R0 = R3 | R1; //This putting in the correct enabled values into the enabled bits part
 	[P0] = R0;
 	
@@ -45,7 +48,7 @@ _My_Init_GPIO_REB_InputASM:
 	P0.L = lo(REG_PORTF_POL);
 	P0.H = hi(REG_PORTF_POL);
 	
-	R1 = 0x0000;
+	R1 = SETTING_TO_ALL_ZEROS;
 	[P0] = R1;
 	
 	UNLINK;

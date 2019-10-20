@@ -13,6 +13,7 @@
 
 	#define returnValue_R0 R0
 	#define MASK_KEEP_BITS_11_TO_0 0x0fff
+	#define MAKING_DIRECTION_ALL_ONES 0xf000
 	
 _My_Init_GPIO_REB_OutputASM:
 	LINK 20;
@@ -23,7 +24,7 @@ _My_Init_GPIO_REB_OutputASM:
 	
 	R0 = W[P0](Z);
 	R1 = MASK_KEEP_BITS_11_TO_0;
-	R2 = 0xf000(Z);
+	R2 = MAKING_DIRECTION_ALL_ONES(Z);
 	
 	R0 = R0 & R1;
 	R0 = R0 | R2;
