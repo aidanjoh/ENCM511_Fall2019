@@ -1,10 +1,10 @@
 /*****************************************************************************
- * Coffeepot_Sim533.cpp
+ * Assignment1CoffeePot_Sim533.cpp
  *****************************************************************************/
 
 #include <sys/platform.h>
 #include "adi_initialize.h"
-#include "Coffeepot_Sim533.h"
+#include "Assignment1CoffeePot_Sim533.h"
 
 
 /** 
@@ -21,9 +21,14 @@ int main(int argc, char *argv[])
 	 */
 	adi_initComponents();
 #ifdef __ADSPBF533__
-	My_CoffeePot_Main_Aidan();
+	printf("Starting the Coffee Pot Assignment\n");
+	startCoffeePot();
 #endif
 
+#ifdef __ADSPBF609__
+	printf("Starting the Coffee Pot Assignment\n");
+	startCoffeePot();
+#endif
 	/* Begin adding your custom code here */
 
 	return 0;

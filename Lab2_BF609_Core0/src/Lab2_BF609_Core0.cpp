@@ -1,11 +1,12 @@
 /*****************************************************************************
- * Coffeepot_Sim533.cpp
+ * Lab2_BF609_Core0.cpp
  *****************************************************************************/
 
 #include <sys/platform.h>
+#include <sys/adi_core.h>
+#include <ccblkfn.h>
 #include "adi_initialize.h"
-#include "Coffeepot_Sim533.h"
-
+#include "Lab2_BF609_Core0.h"
 
 /** 
  * If you want to use command program arguments, then place them in the following string. 
@@ -20,9 +21,13 @@ int main(int argc, char *argv[])
 	 * @return zero on success 
 	 */
 	adi_initComponents();
-#ifdef __ADSPBF533__
-	My_CoffeePot_Main_Aidan();
-#endif
+	
+	/**
+	 * The default startup code does not include any functionality to allow
+	 * core 0 to enable core 1. A convenient way to enable
+	 * core 1 is to use the adi_core_enable function. 
+	 */
+	adi_core_enable(ADI_CORE_1);
 
 	/* Begin adding your custom code here */
 

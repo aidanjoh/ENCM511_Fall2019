@@ -1,5 +1,5 @@
 /*
-** ADSP-BF533 startup code generated on Oct 23, 2019 at 15:25:41.
+** ADSP-BF609 startup code generated on Oct 24, 2019 at 14:30:29.
 */
 /*
 ** Copyright (C) 2000-2019 Analog Devices Inc., All Rights Reserved.
@@ -26,7 +26,8 @@
 
 #define LOADIMM32REG(R,VAL) R ## .L = LO(VAL); R ## .H = HI(VAL);
 
-#define INTERRUPT_BITS (EVT_IVG15)
+/* Mask of interrupt bits to be enabled by default. Bits 0-4 unmaskable. */
+#define INTERRUPT_BITS (BITM_IMASK_IVG11 | BITM_IMASK_IVG15)
 
 #define UNASSIGNED_VAL 0x81818181
 
@@ -57,23 +58,6 @@ start:
       .EXTERN __disable_cplbs;
       .TYPE __disable_cplbs,STT_FUNC;
       CALL.X __disable_cplbs;
-
-#if WA_05000229
-      // Avoid Anomaly 05000229: SPI Slave Boot Mode Modifies Registers from
-      //                         Reset Value
-      R0.L = 0x400;
-#if defined(__ADSPBF538__) || defined(__ADSPBF539__)
-      LOADIMM32REG(P0, SPI0_CTL)
-#else
-      LOADIMM32REG(P0, SPI_CTL)
-#endif
-      W[P0] = R0.L;         // SPI_CTL reset explicitly to 0x0400
-      P0.L = LO(DMA5_CONFIG);
-                            // P0.H is the same for SPI_CTL and DMA5_CONFIG
-      R0.L = 0;
-      W[P0] = R0.L;         // DMA5_CONFIG reset explicitly to 0
-
-#endif /* WA_05000229 */
 
       // Set registers to unassigned value.
       LOADIMM32REG(R0, UNASSIGNED_VAL)
@@ -112,6 +96,10 @@ start:
       L1 = R7;
       L2 = R7;
       L3 = R7;
+
+      // Set the PARCTL bit for the command registers (I/DTEST use the same
+      // bit position) so that any parity errors are ignored.
+      BITSET(R7, BITP_ITEST_COMMAND_PARCTL);
 
       // Zero the ITEST_COMMAND and DTEST_COMMAND registers
       // (in case they have unintialized values in them that
@@ -155,12 +143,26 @@ start:
       LOADIMM32REG(P1, supervisor_mode)
       [P0] = P1;
 
+      // Set the handler for IVG11 to the SEC interrupt dispatcher.
+      .EXTERN __sec_int_dispatcher;
+      .TYPE __sec_int_dispatcher,STT_FUNC;
+      LOADIMM32REG(R1, __sec_int_dispatcher)
+      [P0+(EVT11-EVT15)] = R1;  // write &sec_int_dispatcher to EVT11.
+
       // Configure SYSCFG.
       R1 = SYSCFG;
 
-      BITSET (R1, SYSCFG_CCEN_P);     // Enable the cycle counter.
+      BITSET (R1, BITP_SYSCFG_CCEN);  // Enable the cycle counter.
+
+      BITSET (R1, BITP_SYSCFG_SNEN);  // Enable self-nesting interrupts
 
       SYSCFG = R1;
+
+      // Initialize memory. L1 memory initialization allows parity errors
+      // to be enabled.
+      .EXTERN _adi_init_mem_error_detection;
+      .TYPE _adi_init_mem_error_detection,STT_FUNC;
+      CALL.X _adi_init_mem_error_detection;
 
       // __install_default_handlers is called to allow the opportunity
       // to install event handlers before main(). The default version of this
@@ -260,6 +262,22 @@ supervisor_mode:
       R1 = R5;
       R2 = CPLB_EVT_ICPLB_DOUBLE_HIT;
       CALL.X _adi_rtl_register_dispatched_handler;
+
+#if WA_16000005 || WA_16000042  /* L1 I-Cache with Parity Enabled anomalies. */
+      // If L1 instruction cache is enabled, then disable L1 instruction
+      // parity checking (IMEM_CONTROL.RDCHK).
+      R0 = 57;              // cplb_ctrl = 57
+      CC = BITTST(R0, CPLB_ENABLE_ICACHE_P);
+      IF !CC JUMP .skip_disable_l1_instruction_parity;
+      LOADIMM32REG(P2, IMEM_CONTROL)
+      // P2 is MMR so anom 05000245 doesn't apply.
+      .MESSAGE/SUPPRESS 5508 FOR 1 LINES;
+      R0 = [P2];
+      BITCLR( R0, BITP_IMEM_CONTROL_RDCHK);
+      [P2] = R0;
+      SSYNC;
+      .skip_disable_l1_instruction_parity:
+#endif /* WA_16000005  || WA_16000042 */
 
       // initialize the CPLBs if they're needed. This was not possible
       // before we set up the stacks.

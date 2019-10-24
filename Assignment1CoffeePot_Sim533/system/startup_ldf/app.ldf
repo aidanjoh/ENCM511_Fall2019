@@ -1,5 +1,5 @@
 /*
-** ADSP-BF533 linker description file generated on Oct 23, 2019 at 15:25:41.
+** ADSP-BF533 linker description file generated on Oct 23, 2019 at 22:37:55.
 */
 /*
 ** Copyright (C) 2000-2019 Analog Devices Inc., All Rights Reserved.
@@ -413,9 +413,9 @@ PROCESSOR p0
          RESERVE_EXPAND(heaps_and_stack_in_L1_data_a, heaps_and_stack_in_L1_data_a_length, 0, 4)
          ldf_stack_space = heaps_and_stack_in_L1_data_a;
          ldf_stack_end = (ldf_stack_space + (((heaps_and_stack_in_L1_data_a_length * 2048) / 4096) - 4)) & 0xfffffffc;
-         CoffeePot1_space = ldf_stack_end + 4;
-         CoffeePot1_end = (CoffeePot1_space + (((heaps_and_stack_in_L1_data_a_length * 2048) / 4096) - 4)) & 0xfffffffc;
-         CoffeePot1_length = CoffeePot1_end - CoffeePot1_space;
+         COFFEEPOT1_space = ldf_stack_end + 4;
+         COFFEEPOT1_end = (COFFEEPOT1_space + (((heaps_and_stack_in_L1_data_a_length * 2048) / 4096) - 4)) & 0xfffffffc;
+         COFFEEPOT1_length = COFFEEPOT1_end - COFFEEPOT1_space;
       } > MEM_L1_DATA_A
       
       L1_data_b_prio0 DEF_SECTION_QUAL
@@ -546,9 +546,9 @@ PROCESSOR p0
          ldf_heap_space = heaps_and_stack_in_L1_data_b;
          ldf_heap_end = (ldf_heap_space + (((heaps_and_stack_in_L1_data_b_length * 2048) / 4096) - 4)) & 0xfffffffc;
          ldf_heap_length = ldf_heap_end - ldf_heap_space;
-         CoffeePot2_space = ldf_heap_end + 4;
-         CoffeePot2_end = (CoffeePot2_space + (((heaps_and_stack_in_L1_data_b_length * 2048) / 4096) - 4)) & 0xfffffffc;
-         CoffeePot2_length = CoffeePot2_end - CoffeePot2_space;
+         COFFEEPOT2_space = ldf_heap_end + 4;
+         COFFEEPOT2_end = (COFFEEPOT2_space + (((heaps_and_stack_in_L1_data_b_length * 2048) / 4096) - 4)) & 0xfffffffc;
+         COFFEEPOT2_length = COFFEEPOT2_end - COFFEEPOT2_space;
       } > MEM_L1_DATA_B
       
       
