@@ -11,7 +11,8 @@
 //Prototypes for Coffee Pot Assignment
 void startCoffeePot(void);
 void showNameOfProcessorUsed(void);
-void myInitCoffeePotSimulation(void);
+void DemonstrateLEDControl_CPP(void);
+
 
 
 

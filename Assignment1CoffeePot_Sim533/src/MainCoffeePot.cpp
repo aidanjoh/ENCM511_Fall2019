@@ -12,6 +12,8 @@
 #define MAX_TEMPERATURE 80
 
 #define NUMBEROFCOFFEEPOTS	1
+#define SHOW_FUNCTION_STUB_INFORMATION 1
+
 void startCoffeePot(void)
 {
 	showNameOfProcessorUsed();
@@ -39,10 +41,13 @@ void startCoffeePot(void)
 
 }
 
-void myInitCoffeePotSimulation(void)
-{
 
+inline void Show_Function_Stub_Information(char *functionNameInformation)
+{
+	if(SHOW_FUNCTION_STUB_INFORMATION)
+		printf("%s \n", functionNameInformation);
 }
+
 
 void showNameOfProcessorUsed(void) //This function is displaying what processor is being used
 {
