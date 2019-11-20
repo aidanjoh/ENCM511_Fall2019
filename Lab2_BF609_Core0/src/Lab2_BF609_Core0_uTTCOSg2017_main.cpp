@@ -12,6 +12,7 @@
 
 // TODO -- Update this code to use CORETIMER interrupts to allow slow uTTCOS in BF533 simulator
 // TODO Just these values so that 100 TICS tacks about 1 second
+
 #if defined(__ADSPBF609__)
 #define  TIC_CONTROL_VALUE ((unsigned long int) 4800000)		// BF609 EMULATOR
 #define TICS_PER_SECOND 	100

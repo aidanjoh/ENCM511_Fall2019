@@ -30,4 +30,11 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 		<nature>com.analog.crosscore.managedbuilder.core.CCESProjectNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>EUNIT2017_HelpCommands.pdf</name>
+			<type>1</type>
+			<location>C:/Analog Devices/CrossCore Embedded Studio CCES_Files/Docs/EUNIT2017_HelpCommands.txt</location>
+		</link>
+	</linkedResources>
 </projectDescription>

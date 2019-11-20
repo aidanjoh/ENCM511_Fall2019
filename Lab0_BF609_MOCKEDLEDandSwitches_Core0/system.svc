@@ -25,26 +25,25 @@ It provides information needed to link your code. It can be used to configure me
 			<startup_ldf-configuration>
 				<crt_and_ldf>
 					<propertygroup name="">
-						<property name="si_revision" value=""/>
 						<property name="processor" value="ADSP-BF609"/>
 						<property name="product_name" value="CrossCore(R) Embedded Studio"/>
 						<property name="crt_doj" value="app_startup.doj"/>
 						<property name="crt_output" value="app_startup.s"/>
 						<property name="ldf_output" value="app.ldf"/>
 					</propertygroup>
-					<propertygroup name="template_schemas" value="">
+					<propertygroup name="template_schemas" value="true">
 						<property name="ldf_schema" value="29.02"/>
 						<property name="startup_code_schema" value="28.01"/>
 					</propertygroup>
 					<crt>
-						<propertygroup name="cplb_init" value="">
+						<propertygroup name="cplb_init">
 							<property name="cplb_src_file" value="app_cplbtab.c"/>
 							<property name="cplb_ctrl" value="57"/>
 							<property name="cplb_obj_file" value="app_cplbtab.doj"/>
 							<property name="cplb_src_alt" value="false"/>
 						</propertygroup>
 						<propertygroup name="mem_init" value="false"/>
-						<propertygroup name="use_multicores" value="">
+						<propertygroup name="use_multicores" value="2">
 							<property name="use_core" value="0"/>
 						</propertygroup>
 						<propertygroup name="int_handlers" value="96">
@@ -56,8 +55,8 @@ It provides information needed to link your code. It can be used to configure me
 						<property name="init_regs" value="false"/>
 						<property name="zero_return_regs" value="false"/>
 						<property name="using_cplusplus" value="true"/>
-						<property name="use_profiling" value="false"/>
 						<property name="use_argv" value="false"/>
+						<property name="use_profiling" value="false"/>
 						<property name="use_default_handlers" value="true"/>
 						<property name="use_user_mod_crt" value="true"/>
 						<property name="use_custom_vector" value="false"/>
@@ -68,8 +67,8 @@ It provides information needed to link your code. It can be used to configure me
 					</crt>
 					<ldf>
 						<propertygroup name="system_heap" value="L1">
-							<property name="size_units" value="kB"/>
 							<property name="min_size" value="2"/>
+							<property name="size_units" value="kB"/>
 							<property name="customized" value="false"/>
 						</propertygroup>
 						<propertygroup name="system_stack" value="L1">
@@ -80,21 +79,21 @@ It provides information needed to link your code. It can be used to configure me
 						<propertygroup name="use_sdram" value="false">
 							<property name="partitioned" value="default"/>
 							<property name="size" value="128"/>
-							<property name="dmc_size_0" value="128"/>
 							<property name="size_units" value="MegaBytes"/>
+							<property name="dmc_size_0" value="128"/>
 						</propertygroup>
 						<propertygroup name="running_from_internal_memory" value="true"/>
 						<propertygroup name="libraries" value="true">
 							<property name="use_fileio_libs" value="false"/>
 							<property name="heap_dbg_libs" value="false"/>
 							<property name="no_libdrv" value="false"/>
-							<property name="use_utility_rom" value="false"/>
 							<property name="use_eh_enabled_libs" value="false"/>
 							<property name="use_fixed_point_io_libs" value="false"/>
+							<property name="use_utility_rom" value="false"/>
 						</propertygroup>
 						<property name="use_eh" value="true"/>
-						<property name="use_full_cpplib" value="false"/>
 						<property name="user_heap_src_file" value="app_heaptab.c"/>
+						<property name="use_full_cpplib" value="false"/>
 						<property name="use_software_modules" value="false"/>
 						<property name="use_user_mod_ldf" value="true"/>
 						<property name="use_pgo_hw" value="false"/>

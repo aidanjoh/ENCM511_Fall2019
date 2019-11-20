@@ -1,5 +1,5 @@
 /*
-** ADSP-BF533 user heap source file generated on Oct 23, 2019 at 22:37:55.
+** ADSP-BF533 user heap source file generated on Oct 30, 2019 at 17:47:38.
 */
 /*
 ** Copyright (C) 2000-2019 Analog Devices Inc., All Rights Reserved.
@@ -38,6 +38,10 @@ extern "asm" int COFFEEPOT1_space;
 extern "asm" int COFFEEPOT1_length;
 extern "asm" int COFFEEPOT2_space;
 extern "asm" int COFFEEPOT2_length;
+extern "asm" int COFFEEPOT3_space;
+extern "asm" int COFFEEPOT3_length;
+extern "asm" int COFFEEPOT4_space;
+extern "asm" int COFFEEPOT4_length;
 
 struct heap_table_t
 {
@@ -48,12 +52,14 @@ struct heap_table_t
 
 #pragma file_attr("libData=HeapTable")
 #pragma section("constdata")
-struct heap_table_t heap_table[4] =
+struct heap_table_t heap_table[6] =
 {
 
   { &ldf_heap_space, (unsigned long) &ldf_heap_length, 0 },
   { &COFFEEPOT1_space, (unsigned long) &COFFEEPOT1_length, 1 },
   { &COFFEEPOT2_space, (unsigned long) &COFFEEPOT2_length, 2 },
+  { &COFFEEPOT3_space, (unsigned long) &COFFEEPOT3_length, 3 },
+  { &COFFEEPOT4_space, (unsigned long) &COFFEEPOT4_length, 4 },
 
   { 0, 0, 0 }
 };

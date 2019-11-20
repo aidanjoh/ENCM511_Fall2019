@@ -26,6 +26,7 @@ unsigned short int CurrentWaterLevel_CPP(COFFEEPOT_DEVICE *baseAddress);
 unsigned short int CurrentTemperature_CPP(COFFEEPOT_DEVICE *baseAddress);
 void Remove_CoffeePotFromSystem(COFFEEPOT_DEVICE *baseAddress);
 void ShowDeviceRegisterValues(COFFEEPOT_DEVICE *baseAddress);
+unsigned short int WriteControlRegister_CPP(COFFEEPOT_DEVICE *baseAddress, unsigned short int newControlRegisterValue);
 
 void NetworkTimingFudge_USE_CCES_GUI_Delay(void);
 

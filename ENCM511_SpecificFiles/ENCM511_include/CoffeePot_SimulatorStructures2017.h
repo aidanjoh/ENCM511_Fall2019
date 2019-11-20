@@ -42,6 +42,6 @@ typedef struct COFFEEPOT_DEVICE {  // Base address is different for each coffeep
        unsigned char heaterBoostRegister;	// A VALUE (0 to 15, 0x0 --> 0x3)			-- OFFSET 8 bytes from plug-and-play base address
        // MUST HAVE heaterRegister and heaterBoostRegister set to at least 1 to get any heat
        // Heat applied is proportional to (heaterRegister * heaterBoostRegister)
-}  COFFEEPOT_DEVICE_REGISTER_STRUCTURE;
+}  COFFEEPOT_DEVICE;
 
 #endif /* COFFEEPOT_SIMULATORSTRUCTURES_H_ */

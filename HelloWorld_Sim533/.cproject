@@ -58,6 +58,10 @@
 								<option id="linker.option.srchdir.867962245" name="Library search directories (-L):" superClass="linker.option.srchdir" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${OutDir}/system/startup_ldf&quot;"/>
 								</option>
+								<option id="linker.option.libdoj.1015599974" name="Additional libraries and object files:" superClass="linker.option.libdoj" valueType="libFiles">
+									<listOptionValue builtIn="false" value="C:\Analog Devices\CrossCore Embedded Studio CCES_Files\Blackfin\lib\bf532_rev_any\BlackfinBF533_EUNIT_Library2016.dlb"/>
+								</option>
+								<option id="linker.option.cppexceptlibs.1082923466" name="Use C++ exceptions libraries (-MD__ADI_LIBEH__)" superClass="linker.option.cppexceptlibs" value="true" valueType="boolean"/>
 								<inputType id="linker.doj.input.574208338" name="Object Files" superClass="linker.doj.input"/>
 							</tool>
 							<tool id="blackfin.toolchain.archiver.709782134" name="CrossCore Blackfin Archiver" superClass="blackfin.toolchain.archiver">
@@ -70,10 +74,11 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="blackfin.toolchain.configuration.debug.713273736.src/HelloWorld_Sim533.h" name="HelloWorld_Sim533.h" rcbsApplicability="disable" resourcePath="src/HelloWorld_Sim533.h" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
+						<entry excluding="HelloWorld_Sim533.h|HelloWorld_Sim533.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -174,4 +179,6 @@
 			<content-type-mapping configuration="" content-type="org.eclipse.cdt.core.cxxSource" language="org.eclipse.cdt.core.c++.adi.extension"/>
 		</project-mappings>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 </cproject>

@@ -1,5 +1,5 @@
 /*
-** ADSP-BF533 linker description file generated on Sep 09, 2019 at 11:01:40.
+** ADSP-BF533 linker description file generated on Oct 30, 2019 at 22:20:31.
 */
 /*
 ** Copyright (C) 2000-2019 Analog Devices Inc., All Rights Reserved.
@@ -53,7 +53,7 @@ $LIBRARIES =
    ,libio.dlb
    ,libc.dlb
    ,librt_fileio.dlb
-   ,libcpp.dlb
+   ,libcppx.dlb
    ,libdsp.dlb
    ,libetsi.dlb
    ,libssl.dlb
