@@ -65,6 +65,10 @@
 								</option>
 								<option id="linker.option.libdoj.1151280301" name="Additional libraries and object files:" superClass="linker.option.libdoj" useByScannerDiscovery="false" valueType="libFiles">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/BF609_Custom_uTTCOS_OS_Functions.doj}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/Board_LED_Switches_Library.dlb}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/FrontPanel_LED_Switches_Library.dlb}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/REB_GPIO_Input_Library.dlb}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/REB_GPIO_Output_Library.dlb}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/BF609_uTTCOSg_Library_ReleaseBuild_Untested_7Oct2018.dlb}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/BF609_uTTCOSg_Library_DebugBuild_7Oct2018.dlb}&quot;"/>
 								</option>
