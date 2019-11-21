@@ -52,11 +52,16 @@ void main(void)
 
 	Custom_uTTCOS_OS_Init(TIC_CONTROL_VALUE);  // Need to update to handle coretimer interrupts
 
+	//Code to run the FP threads
 	ID_frontPanelThread1 = uTTCOSg_AddThread(frontPanelThread1, NO_DELAY, 0.5 * ONE_SECOND);
 	ID_frontPanelThread2 = uTTCOSg_AddThread(frontPanelThread2, NO_DELAY, 1.2 * ONE_SECOND);
 	ID_frontPanelThread3 = uTTCOSg_AddThread(frontPanelThread3, NO_DELAY, 1.0 * ONE_SECOND);
 	ID_frontPanelThread4 = uTTCOSg_AddThread(frontPanelThread4, NO_DELAY, 0.01 * ONE_SECOND);
 	ID_frontPanelThread5 = uTTCOSg_AddThread(frontPanelThread5, NO_DELAY, 0.01 * ONE_SECOND);
+
+
+	//Code to run the REB threads
+	uTTCOSg_AddThread(REBThread1, NO_DELAY, 0.25 * ONE_SECOND);
 
 	uTTCOSg_Start_CoreTimer_Scheduler(maxNumberThreads);   //  Start the scheduler timer
 					// Execution time of TT_COS_Dispatch( ) and TT_COS_Update( ) improved by specifiying maxNumberTasks
