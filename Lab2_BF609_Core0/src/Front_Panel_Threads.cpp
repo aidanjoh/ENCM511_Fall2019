@@ -323,3 +323,4 @@ unsigned char myReadFrontPanelLEDs(void)
 
 	return Read_GPIO_FrontPanelLEDS();
 }
+
