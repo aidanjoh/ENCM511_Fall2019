@@ -261,7 +261,8 @@ void frontPanelThread5(void)
 				#endif
 				timeSwitchIsPressedFor = currentTime - timeThatThePressOccured;
 
-				printf("%d \n", timeSwitchIsPressedFor);
+				printf("%llu \n", timeSwitchIsPressedFor);
+				printf("%f \n", (timeSwitchIsPressedFor/(double)(ONESECOND)));
 
 				if ((timeSwitchIsPressedFor >= ONESECOND) && (timeSwitchIsPressedFor <= TWOSECONDS))
 				{
@@ -293,7 +294,6 @@ void frontPanelThread5(void)
 			}
 			break;
 
-		//Could make case 2 and 3 into one case with another switch case
 		case 2:
 			newDisplayRate = newDisplayRate / INCREMENTORDECREMENTVALUE;
 			if (newDisplayRate == 0)
