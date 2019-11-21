@@ -68,17 +68,20 @@ void frontPanelThread1(void)
 	{
 		case 0:
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
-			printf("LED Value: %d /n",lastLEDStateValue);
 			myWriteFrontPanelLEDs(lastLEDStateValue);
-			printf("In Task_frontPanelThread1 LED OFF at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
+			#if DEBUG
+				printf("In Task_frontPanelThread1 LED OFF at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
+			#endif
 			nextLEDState = 1;
 			break;
 
 		case 1:
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
-			printf("LED Value: %d /n",lastLEDStateValue);
+			lastLEDStateValue = lastLEDStateValue | LED8VALUE;
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			#if DEBUG
 			printf("In Task_frontPanelThread1 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
+			#endif
 			nextLEDState = 0;
 			break;
 	}
@@ -90,7 +93,7 @@ void frontPanelThread2(void)
 {
 	static unsigned int LEDState = 0;
 	FRONTPANEL_LED_8BIT_VALUE lastLEDStateValue;
-	unsigned int nextLEDState = LEDState;
+	unsigned int nextLEDState;
 
 	switch(LEDState)
 	{
