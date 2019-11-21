@@ -40,7 +40,7 @@
 #define FRONTPANELSWITCHONEVALUE 0x01
 #define FRONTPANELSWITCHONEMASK (~FRONTPANELSWITCHONEVALUE)
 
-#define DISPLAYRATEVALUE 50
+#define DISPLAYRATEVALUE 100
 #define INITIALSARRAYLENGTH 15
 #define INCREMENTORDECREMENTVALUE 1.25
 
@@ -55,26 +55,30 @@
 
 //Global Variables
 static unsigned int pauseFrontPanelThreadFour = 0;
-static unsigned long long int displayRate = DISPLAYRATEVALUE; //50 is a random number I have chosen for now
+static unsigned long long int displayRate = DISPLAYRATEVALUE; //100 is a random number I have chosen for now
 static unsigned long long int newDisplayRate= DISPLAYRATEVALUE;
 
 void frontPanelThread1(void)
 {
 	static unsigned int LEDState = 0;
 	FRONTPANEL_LED_8BIT_VALUE lastLEDStateValue;
-	unsigned int nextLEDState;
+	unsigned int nextLEDState = LEDState;
 
 	switch(LEDState)
 	{
 		case 0:
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
+			printf("LED Value: %d /n",lastLEDStateValue);
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread1 LED OFF at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
 			nextLEDState = 1;
 			break;
 
 		case 1:
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
+			printf("LED Value: %d /n",lastLEDStateValue);
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread1 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
 			nextLEDState = 0;
 			break;
 	}
@@ -86,13 +90,14 @@ void frontPanelThread2(void)
 {
 	static unsigned int LEDState = 0;
 	FRONTPANEL_LED_8BIT_VALUE lastLEDStateValue;
-	unsigned int nextLEDState;
+	unsigned int nextLEDState = LEDState;
 
 	switch(LEDState)
 	{
 		case 0:
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread2 LED OFF at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
 			nextLEDState = 1;
 			break;
 
@@ -100,6 +105,7 @@ void frontPanelThread2(void)
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED7VALUE);
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread2 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
 			nextLEDState = 2;
 			break;
 
@@ -107,6 +113,7 @@ void frontPanelThread2(void)
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED7VALUE);
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread2 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
 			nextLEDState = 0;
 			break;
 	}
@@ -118,13 +125,14 @@ void frontPanelThread3(void)
 {
 	static unsigned int LEDState = 0;
 	FRONTPANEL_LED_8BIT_VALUE lastLEDStateValue;
-	unsigned int nextLEDState;
+	unsigned int nextLEDState = LEDState;
 
 	switch(LEDState)
 	{
 		case 0:
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			myWriteFrontPanelLEDs(lastLEDStateValue); //This will be displaying the value 0
+			printf("In Task_frontPanelThread3 the LED Value is %d at time 0x%8X system cycles\n", lastLEDStateValue, ReadProcessorCyclesASM());
 			nextLEDState = 1;
 			break;
 
@@ -132,6 +140,7 @@ void frontPanelThread3(void)
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED1VALUE); //This will be displaying the value 1
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread3 the LED Value is %d at time 0x%8X system cycles\n", lastLEDStateValue, ReadProcessorCyclesASM());
 			nextLEDState = 2;
 			break;
 
@@ -139,6 +148,7 @@ void frontPanelThread3(void)
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED2VALUE); //This will be displaying the value 2
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread3 the LED Value is %d at time 0x%8X system cycles\n", lastLEDStateValue, ReadProcessorCyclesASM());
 			nextLEDState = 3;
 			break;
 
@@ -146,6 +156,7 @@ void frontPanelThread3(void)
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED1TO2VALUE); //This will be displaying the value 3
 			myWriteFrontPanelLEDs(lastLEDStateValue);
+			printf("In Task_frontPanelThread3 the LED Value is %d at time 0x%8X system cycles\n", lastLEDStateValue, ReadProcessorCyclesASM());
 			nextLEDState = 0;
 			break;
 	}
@@ -251,7 +262,7 @@ void frontPanelThread5(void)
 					nextSwitchState = 0;
 
 					#if DEBUG
-					printf("You have Paused the Front Panel LEDs /n");
+					printf("You have paused the Front Panel LEDs /n");
 					#endif
 				}
 			}

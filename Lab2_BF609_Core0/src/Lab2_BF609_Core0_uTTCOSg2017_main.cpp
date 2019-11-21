@@ -30,6 +30,13 @@ volatile char ID_frontPanelThread3 = 0;
 volatile char ID_frontPanelThread4 = 0;
 volatile char ID_frontPanelThread5 = 0;
 
+bool My_Init_LEDInterface_Done = false;
+bool My_Init_SwitchInterface_Done = false;
+bool My_Init_GPIO_REB_Input_Done = false;
+bool My_Init_GPIO_REB_Output_Done = false;
+bool My_Init_GPIO_REB_Done = false;
+
+
 void main(void) {
 	// Make maxNumberThreads at least 5 larger than the 
 	//            number of threads you plan to add
@@ -50,29 +57,25 @@ void main(void) {
 	ID_frontPanelThread4 = uTTCOSg_AddThread(frontPanelThread4, NO_DELAY, 0.01 * ONE_SECOND);
 	ID_frontPanelThread5 = uTTCOSg_AddThread(frontPanelThread5, NO_DELAY, 0.01 * ONE_SECOND);
 
-
-
-
-
-	// TODO -- Remove this TODO statement and next line when demo is finished and you start your Lab 2
-	Set_Up_NOT_START_RemoveMeSoonTasks( );
-
-#warning "You will need to activate the next line to start the uTTCOS Clock scheduler
 	uTTCOSg_Start_CoreTimer_Scheduler(maxNumberThreads);   //  Start the scheduler timer
-				// Execution time of TT_COS_Dispatch( ) and TT_COS_Update( ) improved by specifiying maxNumberTasks
-	while (1) {
+					// Execution time of TT_COS_Dispatch( ) and TT_COS_Update( ) improved by specifiying maxNumberTasks
+
+	while (1)
+	{
 
 		// Wait, in low power mode, for an interrupt
 		// The interrupt service routine calls TTCOS_Update( )
 		// uTTCOSg_GoToSleep( );                // Need to update to handle coretimer interrupts
-		Idle_WaitForInterrupts_ASM( );
+		Idle_WaitForInterrupts_ASM();
 
 		// Run all the threads in the system according
 		// to whether their delays have expired
-		uTTCOSg_DispatchThreads( );
+		uTTCOSg_DispatchThreads();
 	}
+
 }
 
+/*
 #warning "Once you have demonstrated uTTCOS  -- Comment out the following lines
 // Set up uTTCOS path to function that this task needs to interact with
 extern volatile char ID_Task_RemoveMeSoon_Print1;
@@ -111,6 +114,7 @@ void TheEnd(void) {
 	printf("The world is saved -- PRINT2 can go home and have a beer\n");
 	uTTCOSg_DeleteThread(ID_Task_RemoveMeSoon_Print2);    // This stops the thread
 }
+*/
 
 void My_Init_SwitchInterface(void) //This function is initializing the Switches on the Panel
 {

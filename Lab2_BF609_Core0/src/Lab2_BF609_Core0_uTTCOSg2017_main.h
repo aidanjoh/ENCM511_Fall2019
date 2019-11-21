@@ -52,11 +52,11 @@ extern "C" void My_Init_GPIO_REB_OutputASM(void);
 
 //These variables are all declared and initialized to be false to begin until the respective function is called
 //to initialize the respective equipment
-static bool My_Init_SwitchInterface_Done = false;
-static bool My_Init_LEDInterface_Done = false;
-static bool My_Init_GPIO_REB_Input_Done = false;
-static bool My_Init_GPIO_REB_Output_Done = false;
-static bool My_Init_GPIO_REB_Done = false;
+extern bool My_Init_SwitchInterface_Done;
+extern bool My_Init_LEDInterface_Done;
+extern bool My_Init_GPIO_REB_Input_Done;
+extern bool My_Init_GPIO_REB_Output_Done;
+extern bool My_Init_GPIO_REB_Done;
 
 
 #endif
