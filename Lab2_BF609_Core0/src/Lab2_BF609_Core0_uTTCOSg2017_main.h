@@ -17,6 +17,16 @@
 #include "../../ENCM511_SpecificFiles/ENCM511_src/Example_uTTCOSg2017_main.h"
 #include "../../ENCM511_SpecificFiles/ENCM511_include/FrontPanel_LED_Switches.h"
 
+#if defined(__ADSPBF609__)
+#define TIC_CONTROL_VALUE ((unsigned long int) 4800000)		// BF609 EMULATOR
+#define TICS_PER_SECOND 	100
+#define ONE_SECOND 			TICS_PER_SECOND		// If TICS_CONTROL_VALUE Adjusted correctly
+#define RUN_ONCE			0
+#define NO_DELAY			0
+#else
+#error "Unknown ADSP or ARM processor"
+#endif
+
 // extern "C" void BlackfinBF533_uTTCOSg_Audio_Rx_Tx_Task(void); 
 extern "C" void SHARC21469_uTTCOSg_Audio_Rx_Tx_Task(void);
 extern "C" void ADSP_SC589_uTTCOSg_Audio_Rx_Tx_Task(void);
@@ -58,6 +68,16 @@ extern bool My_Init_LEDInterface_Done;
 extern bool My_Init_GPIO_REB_Input_Done;
 extern bool My_Init_GPIO_REB_Output_Done;
 extern bool My_Init_GPIO_REB_Done;
+
+//Making the ID extern
+extern volatile char ID_frontPanelThread1;
+extern volatile char ID_frontPanelThread2;
+extern volatile char ID_frontPanelThread3;
+extern volatile char ID_frontPanelThread4;
+extern volatile char ID_frontPanelThread5;
+extern volatile char ID_REBThread1;
+extern volatile char ID_REBThread2;
+extern volatile char ID_REBThread3;
 
 
 #endif

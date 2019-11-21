@@ -6,25 +6,15 @@
 *************************************************************************************/
 #include "Lab2_BF609_Core0_uTTCOSg2017_main.h"
 
-#if defined(__ADSPBF609__)
-#define  TIC_CONTROL_VALUE ((unsigned long int) 4800000)		// BF609 EMULATOR
-#define TICS_PER_SECOND 	100
-#define ONE_SECOND 			TICS_PER_SECOND		// If TICS_CONTROL_VALUE Adjusted correctly
-#define RUN_ONCE			0
-#define NO_DELAY			0
-#else
-#error "Unknown ADSP or ARM processor"
-#endif
-
 //change these names
-volatile char ID_frontPanelThread1 = 0;
-volatile char ID_frontPanelThread2 = 0;
-volatile char ID_frontPanelThread3 = 0;
-volatile char ID_frontPanelThread4 = 0;
-volatile char ID_frontPanelThread5 = 0;
-volatile char ID_REBThread1 = 0;
-volatile char ID_REBThread2 = 0;
-volatile char ID_REBThread3 = 0;
+extern volatile char ID_frontPanelThread1 = 0;
+extern volatile char ID_frontPanelThread2 = 0;
+extern volatile char ID_frontPanelThread3 = 0;
+extern volatile char ID_frontPanelThread4 = 0;
+extern volatile char ID_frontPanelThread5 = 0;
+extern volatile char ID_REBThread1 = 0;
+extern volatile char ID_REBThread2 = 0;
+extern volatile char ID_REBThread3 = 0;
 
 bool My_Init_LEDInterface_Done = false;
 bool My_Init_SwitchInterface_Done = false;
@@ -56,6 +46,8 @@ void main(void)
 
 	//Code to run the REB threads
 	ID_REBThread1 = uTTCOSg_AddThread(REBThread1, NO_DELAY, 0.25 * ONE_SECOND);
+	ID_REBThread2 = uTTCOSg_AddThread(REBThread2, NO_DELAY, 0.01 * ONE_SECOND);
+	ID_REBThread3 = uTTCOSg_AddThread(REBThread3, NO_DELAY, 1.3 * ONE_SECOND);
 
 
 	uTTCOSg_Start_CoreTimer_Scheduler(maxNumberThreads);   //  Start the scheduler timer
