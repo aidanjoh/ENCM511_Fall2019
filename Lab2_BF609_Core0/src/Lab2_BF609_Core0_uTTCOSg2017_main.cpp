@@ -37,7 +37,8 @@ bool My_Init_GPIO_REB_Output_Done = false;
 bool My_Init_GPIO_REB_Done = false;
 
 
-void main(void) {
+void main(void)
+{
 	// Make maxNumberThreads at least 5 larger than the 
 	//            number of threads you plan to add
 	int numBackgroundThreads = 5;
@@ -75,7 +76,7 @@ void main(void) {
 
 }
 
-/*
+
 #warning "Once you have demonstrated uTTCOS  -- Comment out the following lines
 // Set up uTTCOS path to function that this task needs to interact with
 extern volatile char ID_Task_RemoveMeSoon_Print1;
@@ -109,12 +110,17 @@ void KillerOfPrintStatements(void) {
 }
 
 extern volatile char ID_Task_RemoveMeSoon_Print2;
+
 void TheEnd(void) {
 	printf("\n *******************************\n");
 	printf("The world is saved -- PRINT2 can go home and have a beer\n");
 	uTTCOSg_DeleteThread(ID_Task_RemoveMeSoon_Print2);    // This stops the thread
+	uTTCOSg_DeleteThread(ID_frontPanelThread1);
+	uTTCOSg_DeleteThread(ID_frontPanelThread2);    // This stops the thread
+	uTTCOSg_DeleteThread(ID_frontPanelThread3);
+	uTTCOSg_DeleteThread(ID_frontPanelThread4);
+	uTTCOSg_DeleteThread(ID_frontPanelThread5);
 }
-*/
 
 void My_Init_SwitchInterface(void) //This function is initializing the Switches on the Panel
 {
