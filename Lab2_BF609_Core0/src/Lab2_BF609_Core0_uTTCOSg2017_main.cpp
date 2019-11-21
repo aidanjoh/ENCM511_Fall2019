@@ -30,6 +30,11 @@ void main(void) {
 	int numberYourThreads = 4;
 	int maxNumberThreads = numBackgroundThreads + numberYourThreads;  
 
+	My_Init_SwitchInterface();  //This function is initiating the switches on the panel
+	My_Init_GPIO_REB_InputASM(); //This function is initiating the switches on the board
+	My_Init_LEDInterface();  //This function is initiating the LEDS on the panel
+	My_Init_GPIO_REB_OutputASM(); //This function is initiating the LEDs on the board
+
 	Custom_uTTCOS_OS_Init(TIC_CONTROL_VALUE);  // Need to update to handle coretimer interrupts
 
 	// TODO -- Remove this TODO statement and next line when demo is finished and you start your Lab 2
@@ -90,4 +95,52 @@ void TheEnd(void) {
 	uTTCOSg_DeleteThread(ID_Task_RemoveMeSoon_Print2);    // This stops the thread
 }
 
+void My_Init_SwitchInterface(void) //This function is initializing the Switches on the Panel
+{
+	//printf("Stub for My_Init_SwitchInterface() \n");
+	My_Init_SwitchInterface_Done = true;
 
+#ifdef __ADSPBF609__
+	Init_GPIO_FrontPanelSwitches();
+#endif
+}
+
+void My_Init_LEDInterface(void) //This function is initializing the LEDs on the Panel
+{
+	//printf("Stub for My_Init_LEDInterface() \n");
+	My_Init_LEDInterface_Done = true;
+
+	#ifdef __ADSPBF609__
+		Init_GPIO_FrontPanelLEDS();
+	#endif
+
+}
+
+void My_Init_GPIO_REB_Input(void) //This function is initializing the switches on the Board
+{
+	//printf("Stub for My_Init_GPIO_REB_Input() \n");
+	My_Init_GPIO_REB_Input_Done = true;
+
+	#ifdef __ADSPBF609__
+#if 0
+		My_Init_GPIO_REB_InputCpp();
+#else
+		My_Init_GPIO_REB_InputASM();
+#endif
+
+	#endif
+}
+
+void My_Init_GPIO_REB_Output(void) //This function is initializing the LEDs on the Board
+{
+	//printf("Stub for My_Init_GPIO_REB_Output");
+	My_Init_GPIO_REB_Output_Done = true;
+
+	#ifdef __ADSPBF609__
+#if 0
+		My_Init_GPIO_REB_OutputCpp();
+#else
+		My_Init_GPIO_REB_OutputASM();
+#endif
+	#endif
+}

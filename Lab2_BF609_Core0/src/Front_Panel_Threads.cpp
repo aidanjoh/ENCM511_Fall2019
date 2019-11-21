@@ -6,9 +6,6 @@
  */
 
 #include "Front_Panel_Threads.h"
-#include "../../ENCM511_SpecificFiles/ENCM511_include/FrontPanel_LED_Switches.h"
-
-#include <stdio.h>
 
 #define LED8VALUE 0x80
 #define LED8MASK (~LED8VALUE)
@@ -52,6 +49,8 @@
 #define THREESECONDS (ONESECOND*3)
 #define FOURSECONDS (ONESECOND*4)
 
+#define MASK_KEEP_LOWER_FIVE_BITS 0x1F
+
 #define DEBUG 1
 
 //Global Variables
@@ -68,14 +67,14 @@ void frontPanelThread1(void)
 	switch(LEDState)
 	{
 		case 0:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED8MASK);
-			My_WriteLED(lastLEDStateValue);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 1;
 			break;
 
 		case 1:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED8MASK);
-			My_WriteLED(lastLEDStateValue);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 0;
 			break;
 	}
@@ -92,22 +91,22 @@ void frontPanelThread2(void)
 	switch(LEDState)
 	{
 		case 0:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED7MASK);
-			My_WriteLED(lastLEDStateValue);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 1;
 			break;
 
 		case 1:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED7MASK);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED7VALUE);
-			My_WriteLED(lastLEDStateValue);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 2;
 			break;
 
 		case 2:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED7MASK);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED7VALUE);
-			My_WriteLED(lastLEDStateValue);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 0;
 			break;
 	}
@@ -124,29 +123,29 @@ void frontPanelThread3(void)
 	switch(LEDState)
 	{
 		case 0:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED1TO2MASK);
-			My_WriteLED(lastLEDStateValue); //This will be displaying the value 0
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
+			myWriteFrontPanelLEDs(lastLEDStateValue); //This will be displaying the value 0
 			nextLEDState = 1;
 			break;
 
 		case 1:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED1TO2MASK);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED1VALUE); //This will be displaying the value 1
-			My_WriteLED(lastLEDStateValue);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 2;
 			break;
 
 		case 2:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED1TO2MASK);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED2VALUE); //This will be displaying the value 2
-			My_WriteLED(lastLEDStateValue);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 3;
 			break;
 
 		case 3:
-			lastLEDStateValue = (myReadFrontPanelLEDS() & LED1TO2MASK);
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED1TO2VALUE); //This will be displaying the value 3
-			My_WriteLED(lastLEDStateValue);
+			myWriteFrontPanelLEDs(lastLEDStateValue);
 			nextLEDState = 0;
 			break;
 	}
@@ -168,9 +167,9 @@ void frontPanelThread4(void)
 	switch(pauseFrontPanelThreadFour)
 	{
 		case 0:
-			lastLEDValue = (myReadFrontPanelLEDS() & LED3TO6VALUE);
+			lastLEDValue = (myReadFrontPanelLEDs() & LED3TO6VALUE);
 			newLEDValue = initials[index] | LED3TO6MASK;
-			My_WriteLED(lastLEDValue);
+			myWriteFrontPanelLEDs(lastLEDValue);
 			if (displayRate == 0) //if displayRate is equal to zero display the next value
 			{
 				displayRate = DISPLAYRATEVALUE;
@@ -187,8 +186,8 @@ void frontPanelThread4(void)
 			break;
 
 		case 1:
-			lastLEDValue = (myReadFrontPanelLEDS() & LED3TO6VALUE);
-			My_WriteLED(lastLEDStateValue);
+			lastLEDValue = (myReadFrontPanelLEDs() & LED3TO6VALUE);
+			myWriteFrontPanelLEDs(lastLEDValue);
 			break;
 	}
 }
@@ -206,7 +205,7 @@ void frontPanelThread5(void)
 	switch(switchState)
 	{
 		case 0:
-			switchOneValue = (readSwitchesFrontPanel()) & FRONTPANELSWITCHONEVALUE;
+			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEVALUE;
 			if(switchOneValue == 1)
 			{
 				timeThatThePressOccured = ReadProcessorCyclesASM();
@@ -219,7 +218,7 @@ void frontPanelThread5(void)
 			break;
 
 		case 1:
-			switchOneValue = (readSwitchesFrontPanel()) & FRONTPANELSWITCHONEVALUE;
+			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEVALUE;
 			if (switchOneValue == 1)
 			{
 				nextSwitchState = 1;
@@ -274,4 +273,39 @@ void frontPanelThread5(void)
 			nextSwitchState = 0;
 			break;
 	}
+}
+
+void myWriteFrontPanelLEDs(unsigned char neededLEDValue) //This function is writing the values to be displayed by the LEDs
+{
+	if (My_Init_LEDInterface_Done == false)
+	{
+		return;
+	}
+	Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
+}
+
+unsigned char myReadFrontPanelSwitches(void) //This function is reading the switches from the panel
+{
+		if (My_Init_SwitchInterface_Done == false)
+		{
+			return -1;
+		}
+
+		FRONTPANEL_LED_8BIT_VALUE activeLowValues = Read_GPIO_FrontPanelSwitches();
+
+		FRONTPANEL_LED_8BIT_VALUE activeHighValues = ~activeLowValues;
+
+		FRONTPANEL_LED_8BIT_VALUE wantedSwitchValueActiveHigh = activeHighValues & MASK_KEEP_LOWER_FIVE_BITS;
+
+		return wantedSwitchValueActiveHigh;
+}
+
+unsigned char myReadFrontPanelLEDs(void)
+{
+	if (My_Init_LEDInterface_Done == false)
+	{
+		return -1;
+	}
+
+	return Read_GPIO_FrontPanelLEDS();
 }
