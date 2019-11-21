@@ -225,13 +225,13 @@ void frontPanelThread5(void)
 	unsigned int nextSwitchState;
 	unsigned int switchOneValue;
 	static unsigned long long int timeSwitchIsPressedFor = 0;
-	unsigned long long int timeThatThePressOccured;
-	unsigned long long int currentTime;
+	static unsigned long long int timeThatThePressOccured;
+	static unsigned long long int currentTime;
 
 	switch(switchState)
 	{
 		case 0:
-			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEMASK;
+			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEVALUE;
 			if(switchOneValue == 1)
 			{
 				timeThatThePressOccured = ReadProcessorCyclesASM();
@@ -247,7 +247,7 @@ void frontPanelThread5(void)
 			break;
 
 		case 1:
-			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEMASK;
+			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEVALUE;
 			if (switchOneValue == 1)
 			{
 				nextSwitchState = 1;
@@ -260,13 +260,16 @@ void frontPanelThread5(void)
 					printf("In Task_frontPanelThread5 the switch State is %d at time 0x%8X system cycles\n", switchState, ReadProcessorCyclesASM());
 				#endif
 				timeSwitchIsPressedFor = currentTime - timeThatThePressOccured;
+
+				printf("%d \n", timeSwitchIsPressedFor);
+
 				if ((timeSwitchIsPressedFor >= ONESECOND) && (timeSwitchIsPressedFor <= TWOSECONDS))
 				{
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 2;
 
 					#if DEBUG
-					printf("You have slowed down the Front Panel LEDS \n");
+					printf("You have speed up the Front Panel LEDS \n");
 					#endif
 				}
 				else if((timeSwitchIsPressedFor >= THREESECONDS) && (timeSwitchIsPressedFor <= FOURSECONDS))
@@ -275,7 +278,7 @@ void frontPanelThread5(void)
 					nextSwitchState = 3;
 
 					#if DEBUG
-					printf("You have speed up the Front Panel LEDS \n");
+					printf("You have slowed down the Front Panel LEDS \n");
 					#endif
 				}
 				else
