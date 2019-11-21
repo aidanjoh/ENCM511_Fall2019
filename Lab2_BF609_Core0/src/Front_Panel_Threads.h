@@ -57,7 +57,6 @@
 
 #define MASK_KEEP_LOWER_FIVE_BITS 0x1F
 
-#define GARBAGEVALUE static_cast<unsigned char>(-1)
 #define DEBUG 0
 
 //Function Prototypes used in Front_Panel_Thread.cpp
@@ -66,11 +65,5 @@ void frontPanelThread2(void);
 void frontPanelThread3(void);
 void frontPanelThread4(void);
 void frontPanelThread5(void);
-
-//Function Prototypes used in Lab 1 for FrontPanel
-void myWriteFrontPanelLEDs(unsigned char);
-unsigned char myReadFrontPanelSwitches(void);
-unsigned char myReadFrontPanelLEDs(void);
-
 
 #endif /* FRONT_PANEL_THREADS_H_ */

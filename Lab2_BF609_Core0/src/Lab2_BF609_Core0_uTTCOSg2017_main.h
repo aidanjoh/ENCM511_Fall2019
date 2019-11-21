@@ -38,6 +38,7 @@ extern "C" void ADSP_SC589_uTTCOSg_Audio_Rx_Tx_Task(void);
 #include "faultyLED1_Thread.h"
 #include "Front_Panel_Threads.h"
 #include "REB_Threads.h"
+#include "Lab1And0FrontPanelFunctions.h"
 
 extern "C" void ReadCycles_ASM(void);
 

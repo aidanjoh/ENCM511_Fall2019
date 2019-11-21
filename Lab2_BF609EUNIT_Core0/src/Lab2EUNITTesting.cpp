@@ -67,17 +67,95 @@ TEST(Thread1to3_Successes)
 
 #endif
 
+
+static bool My_Init_LEDInterface_Done = false;
+static bool My_Init_SwitchInterface_Done = false;
+static bool My_Init_GPIO_REB_Input_Done = false;
+static bool My_Init_GPIO_REB_Output_Done = false;
+static bool My_Init_GPIO_REB_Done = false;
+
 TEST(Thread1to3)
 { 
-	#warning 'Dummy test has been inserted -- replace with your own -- Thu 2019/11/21 at 10:55:00 AM '
-	// TODO -- 'Dummy test has been inserted  -- replace with your own -- Thu 2019/11/21 at 10:55:00 AM '
-	printf("Dummy test has been inserted -- replace with your own -- Thu 2019/11/21 at 10:55:00 AM \n");
-		bool validTest = false;
-	CHECK(validTest == true);
-	CHECK(validTest == true);
-	CHECK(validTest == true);
-	CHECK(validTest == true);
-	CHECK(validTest == true);
+	printf("EUNIT Test for Threads 1 to 3 \n");
+
+	//Time 0.25 seconds
+	//TODO thread 1 check
+	//should be off
+
+	unsigned char expectedValue = 0x00;
+	unsigned char value = 0x00;
+
+	frontPanelThread1();
+
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 0.4 seconds
+	//TODO thread 2 check
+	//should be off
+
+	expectedValue = 0x00;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 0.5 seconds
+	//TODO thread 1 and 3 check
+	//thread 1 should be on and thread as a 0
+	expectedValue = 0x80;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 0.75 seconds
+	//TODO thread 1 check
+	//Thread 1 should be off
+	expectedValue = 0x00;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 0.8 seconds
+	//TODO thread 2 check
+	//Thread 2 should be on
+	expectedValue = 0x40;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 1 second
+	//TODO check thread 1 and 3
+	//Thread 1 should be on and thread 3 should display a 1 with thread 2 still on
+	expectedValue = 0xc1;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 1.2 seconds
+	//TODO check thread 2
+	//Thread 2 should be on
+	expectedValue = 0xc1;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 1.25 seconds
+	//TODO check thread 1
+	//Thread 1 should be off
+	expectedValue = 0x41;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 1.50 seconds
+	//TODO check thread 1 and 3
+	//Thread 1 should be on and thread 3 should display a 2
+	expectedValue = 0xc2;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 1.6 seconds
+	//TODO check thread 2
+	//Thread 2 should be off
+	expectedValue = 0x82;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 1.75 seconds
+	//TODO check thread 1
+	//Thread 1 should be off
+	expectedValue = 0x02;
+	CHECK_EQUAL(expectedValue, value);
+
+	//Time 2 seconds
+	//TODO check thread 1, 2 and 3
+	//Thread 1 should be on, thread 2 should be on and thread 3 should display a 3
+	expectedValue = 0xc3;
+	CHECK_EQUAL(expectedValue, value);
+
 }
 
 

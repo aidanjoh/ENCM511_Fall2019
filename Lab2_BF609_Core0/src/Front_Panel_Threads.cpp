@@ -182,7 +182,7 @@ void frontPanelThread5(void)
 
 	switch(switchState)
 	{
-		case 0:
+		case 0: //This case is where it is checking if SW on the Front Panel has been pressed and if it has it records the time that it is pressed at
 			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEVALUE;
 			if(switchOneValue == 1)
 			{
@@ -198,13 +198,13 @@ void frontPanelThread5(void)
 			}
 			break;
 
-		case 1:
+		case 1: //This case is where it is checking if SW1 is still pressed or if it has been released
 			switchOneValue = (myReadFrontPanelSwitches()) & FRONTPANELSWITCHONEVALUE;
 			if (switchOneValue == 1)
 			{
 				nextSwitchState = 1;
 			}
-			else
+			else //If SW1 has been relased it records the time and then calculates the time that the SW was pressed for
 			{
 				currentTime = ReadProcessorCyclesASM();
 
@@ -219,27 +219,27 @@ void frontPanelThread5(void)
 					printf("%f \n", (timeSwitchIsPressedFor/(double)(ONESECOND)));
 				#endif
 
-				if ((timeSwitchIsPressedFor >= ONESECOND) && (timeSwitchIsPressedFor <= TWOSECONDS))
+				if ((timeSwitchIsPressedFor >= ONESECOND) && (timeSwitchIsPressedFor <= TWOSECONDS)) //If the time that SW1 was pressed is between 1-2seconds it will speed up the FP LEDS 3-6
 				{
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 2;
 
-					#if 1
+					#if DEBUG
 					printf("You have speed up the Front Panel LEDS \n");
 					#endif
 				}
-				else if((timeSwitchIsPressedFor >= THREESECONDS) && (timeSwitchIsPressedFor <= FOURSECONDS))
+				else if((timeSwitchIsPressedFor >= THREESECONDS) && (timeSwitchIsPressedFor <= FOURSECONDS)) //If the time that SW1 was pressed is between 3-4 seconds it will slow down the FP LEDS 3-6
 				{
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 3;
 
-					#if 1
+					#if DEBUG
 						printf("You have slowed down the Front Panel LEDS \n");
 					#endif
 				}
 				else
 				{
-					pauseFrontPanelThreadFour = 1;
+					pauseFrontPanelThreadFour = 1; //Giving the pauseFrontPanelThreadFour variable a one will pause the FP LEDS 3-6
 					nextSwitchState = 0;
 
 					#if DEBUG
@@ -273,38 +273,5 @@ void frontPanelThread5(void)
 	}
 
 	switchState = nextSwitchState;
-}
-
-void myWriteFrontPanelLEDs(unsigned char neededLEDValue) //This function is writing the values to be displayed by the LEDs
-{
-	if (My_Init_LEDInterface_Done == false)
-	{
-		return;
-	}
-
-	Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
-}
-
-unsigned char myReadFrontPanelSwitches(void) //This function is reading the switches from the panel
-{
-		if (My_Init_SwitchInterface_Done == false)
-		{
-			return GARBAGEVALUE;
-		}
-		FRONTPANEL_LED_8BIT_VALUE activeLowValues = Read_GPIO_FrontPanelSwitches();
-		FRONTPANEL_LED_8BIT_VALUE activeHighValues = ~activeLowValues;
-		FRONTPANEL_LED_8BIT_VALUE wantedSwitchValueActiveHigh = activeHighValues & MASK_KEEP_LOWER_FIVE_BITS;
-
-		return wantedSwitchValueActiveHigh;
-}
-
-unsigned char myReadFrontPanelLEDs(void)
-{
-	if (My_Init_LEDInterface_Done == false)
-	{
-		return GARBAGEVALUE;
-	}
-
-	return Read_GPIO_FrontPanelLEDS();
 }
 
