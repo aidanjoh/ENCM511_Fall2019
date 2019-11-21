@@ -7,56 +7,9 @@
 
 #include "Front_Panel_Threads.h"
 
-#define LED8VALUE 0x80
-#define LED8MASK (~LED8VALUE)
-
-#define LED7VALUE 0x40
-#define LED7MASK (~LED7VALUE)
-
-#define LED6VALUE 0x20
-#define LED6MASK (~LED6VALUE)
-
-#define LED5VALUE 0x10
-#define LED5MASK (~LED5VALUE)
-
-#define LED4VALUE 0x08
-#define LED4MASK (~LED4VALUE)
-
-#define LED3VALUE 0x04
-#define LED3MASK (~LED3VALUE)
-
-#define LED2VALUE 0x02
-#define LED2MASK (~LED2VALUE)
-
-#define LED1VALUE 0x01
-#define LED1MASK (~LED1VALUE)
-
-#define LED3TO6VALUE 0x3c
-#define LED3TO6MASK (~LED3TO6VALUE)
-
-#define LED1TO2VALUE 0x03
-#define LED1TO2MASK (~LED1TO2VALUE)
-
-#define FRONTPANELSWITCHONEVALUE 0x01
-#define FRONTPANELSWITCHONEMASK (~FRONTPANELSWITCHONEVALUE)
-
-#define DISPLAYRATEVALUE 100
-#define INITIALSARRAYLENGTH 15
-#define INCREMENTORDECREMENTVALUE 1.25
-
-#define ONESECOND ((unsigned long int) 480000000)
-#define TWOSECONDS (ONESECOND*2)
-#define THREESECONDS (ONESECOND*3)
-#define FOURSECONDS (ONESECOND*4)
-
-#define MASK_KEEP_LOWER_FIVE_BITS 0x1F
-
-#define GARBAGEVALUE -1
-#define DEBUG 0
-
 //Global Variables
 static unsigned int pauseFrontPanelThreadFour = 0;
-static unsigned long long int displayRate = DISPLAYRATEVALUE; //100 is a random number I have chosen for now
+static unsigned long long int displayRate = DISPLAYRATEVALUE;
 static unsigned long long int newDisplayRate= DISPLAYRATEVALUE;
 
 void frontPanelThread1(void)
@@ -67,8 +20,8 @@ void frontPanelThread1(void)
 
 	switch(LEDState)
 	{
-		case 0:
-			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
+		case 0: //This case is where the LED is off
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK); //Zeroing the 8th LED bit
 			myWriteFrontPanelLEDs(lastLEDStateValue);
 			#if DEBUG
 				printf("In Task_frontPanelThread1 LED OFF at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
@@ -76,9 +29,9 @@ void frontPanelThread1(void)
 			nextLEDState = 1;
 			break;
 
-		case 1:
-			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK);
-			lastLEDStateValue = lastLEDStateValue | LED8VALUE;
+		case 1: //This case is where the LED is on
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED8MASK); //Zeroing the 8th LED bit
+			lastLEDStateValue = lastLEDStateValue | LED8VALUE; //Placing a one into the 8th LED bit
 			myWriteFrontPanelLEDs(lastLEDStateValue);
 			#if DEBUG
 				printf("In Task_frontPanelThread1 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
@@ -87,7 +40,7 @@ void frontPanelThread1(void)
 			break;
 	}
 
-	LEDState = nextLEDState;
+	LEDState = nextLEDState; //placing the nextLEDState into the LEDState variable
 }
 
 void frontPanelThread2(void)
@@ -98,8 +51,8 @@ void frontPanelThread2(void)
 
 	switch(LEDState)
 	{
-		case 0:
-			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
+		case 0: //This case is where the LED is off
+			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK); //Zeroing the 7th LED bit
 			myWriteFrontPanelLEDs(lastLEDStateValue);
 			#if DEBUG
 				printf("In Task_frontPanelThread2 LED OFF at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
@@ -107,9 +60,9 @@ void frontPanelThread2(void)
 			nextLEDState = 1;
 			break;
 
-		case 1:
+		case 1: //This case is where the LED is on
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
-			lastLEDStateValue = (lastLEDStateValue | LED7VALUE);
+			lastLEDStateValue = (lastLEDStateValue | LED7VALUE); //Placing a one into the 7th LED bit
 			myWriteFrontPanelLEDs(lastLEDStateValue);
 			#if DEBUG
 				printf("In Task_frontPanelThread2 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
@@ -117,9 +70,9 @@ void frontPanelThread2(void)
 			nextLEDState = 2;
 			break;
 
-		case 2:
+		case 2: //This is another case where the LED is on
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED7MASK);
-			lastLEDStateValue = (lastLEDStateValue | LED7VALUE);
+			lastLEDStateValue = (lastLEDStateValue | LED7VALUE); //Placing a one into the 7th LED bit
 			myWriteFrontPanelLEDs(lastLEDStateValue);
 			#if DEBUG
 				printf("In Task_frontPanelThread2 LED ON at time 0x%8X system cycles\n", ReadProcessorCyclesASM());
@@ -128,7 +81,7 @@ void frontPanelThread2(void)
 			break;
 	}
 
-	LEDState = nextLEDState;
+	LEDState = nextLEDState; //Placing the nextLEDState into the LEDState variable
 }
 
 void frontPanelThread3(void)
@@ -139,7 +92,7 @@ void frontPanelThread3(void)
 
 	switch(LEDState)
 	{
-		case 0:
+		case 0: //This case is where LED 1 and LED 2 are off representing 0
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			myWriteFrontPanelLEDs(lastLEDStateValue); //This will be displaying the value 0
 			#if DEBUG
@@ -148,7 +101,7 @@ void frontPanelThread3(void)
 			nextLEDState = 1;
 			break;
 
-		case 1:
+		case 1: //This case is where LED 1 is on and LED 2 is off representing 1
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED1VALUE); //This will be displaying the value 1
 			myWriteFrontPanelLEDs(lastLEDStateValue);
@@ -158,7 +111,7 @@ void frontPanelThread3(void)
 			nextLEDState = 2;
 			break;
 
-		case 2:
+		case 2: //This case is where LED 1 is off and LED 2 is on representing 2
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED2VALUE); //This will be displaying the value 2
 			myWriteFrontPanelLEDs(lastLEDStateValue);
@@ -168,7 +121,7 @@ void frontPanelThread3(void)
 			nextLEDState = 3;
 			break;
 
-		case 3:
+		case 3: //This case is where LED 1 is on and LED 2 is on representing 3
 			lastLEDStateValue = (myReadFrontPanelLEDs() & LED1TO2MASK);
 			lastLEDStateValue = (lastLEDStateValue | LED1TO2VALUE); //This will be displaying the value 3
 			myWriteFrontPanelLEDs(lastLEDStateValue);
@@ -179,13 +132,12 @@ void frontPanelThread3(void)
 			break;
 	}
 
-	LEDState = nextLEDState;
+	LEDState = nextLEDState; // Placing nextLEDState into the LEDState variable
 }
 
 void frontPanelThread4(void)
 {
-	//Might have to place in the global position
-	static const FRONTPANEL_LED_8BIT_VALUE initials[] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0}; //My initials array from Lab 0
+	static const FRONTPANEL_LED_8BIT_VALUE initials[] = {0x00, 0xe0, 0x1c, 0x13, 0x1c, 0xe0, 0x00, 0xc0, 0x00, 0xe0, 0xc3, 0xff, 0x03, 0x00, 0xc0}; //Aidan's initials array from Lab 0
 	static unsigned int index = 0;
 
 	FRONTPANEL_LED_8BIT_VALUE lastLEDValue;
@@ -193,28 +145,28 @@ void frontPanelThread4(void)
 
 	unsigned int nextState;
 
-	if(pauseFrontPanelThreadFour == 0)
+	if(pauseFrontPanelThreadFour == 0) //This code will be run if thread four is not paused
 	{
 		lastLEDValue = (myReadFrontPanelLEDs() & LED3TO6MASK);
-		newLEDValue = initials[index] & LED3TO6VALUE;
-		newLEDValue = newLEDValue | lastLEDValue;
+		newLEDValue = initials[index] & LED3TO6VALUE; //newLEDValue will have the value in the initials array at the index, index for only the 3rd bit to the 6th bit
+		newLEDValue = newLEDValue | lastLEDValue; //Putting the lastLEDValue with the value from the array to make sure that no bits were overwritten
 		myWriteFrontPanelLEDs(newLEDValue);
 		if (displayRate == 0) //if displayRate is equal to zero display the next value
 		{
 			displayRate = DISPLAYRATEVALUE;
-			index++;
+			index++; //Incrementing the index
 			#if DEBUG
 				printf("In Task_frontPanelThread4 the LED Value is %d at time 0x%8X system cycles\n", newLEDValue, ReadProcessorCyclesASM());
 			#endif
-			if(initials[index] == INITIALSARRAYLENGTH) //Making sure we reset the initials array
+			if(initials[index] == INITIALSARRAYLENGTH) //Making sure we reset the initials array when the index gets to its length
 			{
 				index = 0;
 			}
 		}
-		else
-		{
-			displayRate--;
-		}
+	}
+	else
+	{
+		displayRate--; //Decrementing the displayRate
 	}
 }
 
@@ -259,17 +211,20 @@ void frontPanelThread5(void)
 				#if DEBUG
 					printf("In Task_frontPanelThread5 the switch State is %d at time 0x%8X system cycles\n", switchState, ReadProcessorCyclesASM());
 				#endif
+
 				timeSwitchIsPressedFor = currentTime - timeThatThePressOccured;
 
-				printf("%llu \n", timeSwitchIsPressedFor);
-				printf("%f \n", (timeSwitchIsPressedFor/(double)(ONESECOND)));
+				#if DEBUG
+					printf("%llu \n", timeSwitchIsPressedFor);
+					printf("%f \n", (timeSwitchIsPressedFor/(double)(ONESECOND)));
+				#endif
 
 				if ((timeSwitchIsPressedFor >= ONESECOND) && (timeSwitchIsPressedFor <= TWOSECONDS))
 				{
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 2;
 
-					#if DEBUG
+					#if 1
 					printf("You have speed up the Front Panel LEDS \n");
 					#endif
 				}
@@ -278,8 +233,8 @@ void frontPanelThread5(void)
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 3;
 
-					#if DEBUG
-					printf("You have slowed down the Front Panel LEDS \n");
+					#if 1
+						printf("You have slowed down the Front Panel LEDS \n");
 					#endif
 				}
 				else
@@ -294,7 +249,7 @@ void frontPanelThread5(void)
 			}
 			break;
 
-		case 2:
+		case 2: //This case is where the DisplayRate gets incremented, which speeds up the time the initials array pattern is displayed by the LEDs
 			newDisplayRate = newDisplayRate / INCREMENTORDECREMENTVALUE;
 			if (newDisplayRate == 0)
 			{
@@ -308,7 +263,7 @@ void frontPanelThread5(void)
 			#endif
 			break;
 
-		case 3:
+		case 3: //This case is where the DisplayRate gets decremented, which slows down the time the initials array pattern is displayed by the LEDs
 			newDisplayRate = newDisplayRate * INCREMENTORDECREMENTVALUE;
 			nextSwitchState = 0;
 			#if DEBUG
@@ -316,6 +271,7 @@ void frontPanelThread5(void)
 			#endif
 			break;
 	}
+
 	switchState = nextSwitchState;
 }
 
@@ -325,6 +281,7 @@ void myWriteFrontPanelLEDs(unsigned char neededLEDValue) //This function is writ
 	{
 		return;
 	}
+
 	Write_GPIO_FrontPanelLEDS(neededLEDValue); //Writing the value to the panel of LEDs
 }
 
@@ -334,11 +291,8 @@ unsigned char myReadFrontPanelSwitches(void) //This function is reading the swit
 		{
 			return GARBAGEVALUE;
 		}
-
 		FRONTPANEL_LED_8BIT_VALUE activeLowValues = Read_GPIO_FrontPanelSwitches();
-
 		FRONTPANEL_LED_8BIT_VALUE activeHighValues = ~activeLowValues;
-
 		FRONTPANEL_LED_8BIT_VALUE wantedSwitchValueActiveHigh = activeHighValues & MASK_KEEP_LOWER_FIVE_BITS;
 
 		return wantedSwitchValueActiveHigh;
