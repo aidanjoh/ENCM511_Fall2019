@@ -26,8 +26,7 @@ extern "C" void ADSP_SC589_uTTCOSg_Audio_Rx_Tx_Task(void);
 // DON'T USE PRINT STATEMENT INSIDE uTTCOS as it is a real time system and
 // print statements run on the HIGH priority emulator interrupt and disrupt real time operations
 #include "faultyLED1_Thread.h"
-
-#include <stdio.h>
+#include "Front_Panel_Threads.h"
 
 extern "C" void ReadCycles_ASM(void);
 

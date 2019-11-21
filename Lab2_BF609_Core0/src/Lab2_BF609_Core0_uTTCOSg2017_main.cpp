@@ -23,11 +23,18 @@
 #error "Unknown ADSP or ARM processor"
 #endif
 
+//change these names
+volatile char ID_frontPanelThread1 = 0;
+volatile char ID_frontPanelThread2 = 0;
+volatile char ID_frontPanelThread3 = 0;
+volatile char ID_frontPanelThread4 = 0;
+volatile char ID_frontPanelThread5 = 0;
+
 void main(void) {
 	// Make maxNumberThreads at least 5 larger than the 
 	//            number of threads you plan to add
 	int numBackgroundThreads = 5;
-	int numberYourThreads = 4;
+	int numberYourThreads = 8;
 	int maxNumberThreads = numBackgroundThreads + numberYourThreads;  
 
 	My_Init_SwitchInterface();  //This function is initiating the switches on the panel
@@ -36,6 +43,16 @@ void main(void) {
 	My_Init_GPIO_REB_OutputASM(); //This function is initiating the LEDs on the board
 
 	Custom_uTTCOS_OS_Init(TIC_CONTROL_VALUE);  // Need to update to handle coretimer interrupts
+
+	ID_frontPanelThread1 = uTTCOSg_AddThread(frontPanelThread1, NO_DELAY, 0.5 * ONE_SECOND);
+	ID_frontPanelThread2 = uTTCOSg_AddThread(frontPanelThread2, NO_DELAY, 1.2 * ONE_SECOND);
+	ID_frontPanelThread3 = uTTCOSg_AddThread(frontPanelThread3, NO_DELAY, 1.0 * ONE_SECOND);
+	ID_frontPanelThread4 = uTTCOSg_AddThread(frontPanelThread4, NO_DELAY, 0.01 * ONE_SECOND);
+	ID_frontPanelThread5 = uTTCOSg_AddThread(frontPanelThread5, NO_DELAY, 0.01 * ONE_SECOND);
+
+
+
+
 
 	// TODO -- Remove this TODO statement and next line when demo is finished and you start your Lab 2
 	Set_Up_NOT_START_RemoveMeSoonTasks( );
