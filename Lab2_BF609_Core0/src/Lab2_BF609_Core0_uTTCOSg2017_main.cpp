@@ -37,9 +37,9 @@ void main(void)
 	Custom_uTTCOS_OS_Init(TIC_CONTROL_VALUE);  // Need to update to handle core-timer interrupts
 
 	//Code to run the FP threads
-	ID_frontPanelThread1 = uTTCOSg_AddThread(frontPanelThread1, NO_DELAY, 0.5 * ONE_SECOND);
-	ID_frontPanelThread2 = uTTCOSg_AddThread(frontPanelThread2, NO_DELAY, 1.2 * ONE_SECOND);
-	ID_frontPanelThread3 = uTTCOSg_AddThread(frontPanelThread3, NO_DELAY, 1.0 * ONE_SECOND);
+	ID_frontPanelThread1 = uTTCOSg_AddThread(frontPanelThread1, NO_DELAY, 0.25 * ONE_SECOND);
+	ID_frontPanelThread2 = uTTCOSg_AddThread(frontPanelThread2, NO_DELAY, 0.4 * ONE_SECOND);
+	ID_frontPanelThread3 = uTTCOSg_AddThread(frontPanelThread3, NO_DELAY, 0.5 * ONE_SECOND);
 	ID_frontPanelThread4 = uTTCOSg_AddThread(frontPanelThread4, NO_DELAY, 0.01 * ONE_SECOND);
 	ID_frontPanelThread5 = uTTCOSg_AddThread(frontPanelThread5, NO_DELAY, 0.01 * ONE_SECOND);
 
