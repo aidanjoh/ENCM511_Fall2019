@@ -19,7 +19,7 @@ It provides information needed to link your code. It can be used to configure me
 	</installedComponents>
 	<configurations>
 		<configuration id="com.analog.crosscore.ssldd.pinmux.component">
-			<pinmux-configuration processor="ADSP-BF609" version="1.0"/>
+			<pinmux-configuration processor="" version="1.0"/>
 		</configuration>
 		<configuration id="com.analog.sourcegen.component.startup_ldf">
 			<startup_ldf-configuration>

@@ -7,19 +7,6 @@
 #include "REB_Threads.h"
 #include "Lab2_BF609_Core0_uTTCOSg2017_main.h"
 
-//This bool is so that another thread can control if Thread 1 writes to the LEDS
-static bool Thread1_Control = true;
-
-static unsigned short int hardWareArray [100];
-static int array_index = 0;
-
-#define FP_SW5_ON 0x10
-#define FP_SW_OFF 0x00
-#define FP_SW4_ON 0x08
-#define FP_SW3_ON 0x04
-#define FP_SW2_ON 0x02
-#define FP_SW1_ON 0x01
-
 void REBThread1(void)
 {
 //REB Thread 1: Task that counts from 0 – 15 in ¼ second intervals and displays on REB LEDS 4 – 7
@@ -29,7 +16,7 @@ void REBThread1(void)
 	if(Thread1_Control)
 	{
 		My_Write_GPIO_REB_OutputASM(Thread1_Counter);
-		printf("Writing 0-15\n");
+		printf("Writing numbers 0-15\n");
 	}
 
 	Thread1_Counter++;
@@ -57,16 +44,12 @@ void REBThread2(void)
 
 	}
 
-	//terminate thread if writing is done by pressing switch 5 or terminating
+	//terminate thread if writing is done by pressing switch 5 or going over 100 values
 	if((myReadFrontPanelSwitches() & FP_SW5_ON) == FP_SW5_ON ||array_index >= 100)
 	{
-		//uTTCOSg_DeleteThread(ID_REBThread2); //this deletes the thread, and stops it
 		Thread1_Control = false;
 		printf("\ngoing into thread 3\n");
 	}
-
-
-
 }
 
 void REBThread3(void)
@@ -78,20 +61,12 @@ void REBThread3(void)
 		My_Write_GPIO_REB_OutputASM(hardWareArray[index]);
 		index++;
 
-
-		if(myReadFrontPanelSwitches() == FP_SW2_ON)
-		{
-			Thread1_Control = true;
-			array_index = 0;
-		}
-
-		if(array_index <= index)
+		//Will exit this thread if it has gone through entire hardware array or if switch 2 is pressed
+		if(array_index <= index || myReadFrontPanelSwitches() == FP_SW2_ON )
 		{
 			// reset
 			index = 0;
 			array_index = 0;
-
-			//ID_REBThread2 = uTTCOSg_AddThread(REBThread2, NO_DELAY, 2.0 * ONE_SECOND);
 			Thread1_Control = true;
 		}
 	}
