@@ -164,11 +164,9 @@ void frontPanelThread4(void)
 				index = 0;
 			}
 		}
-	}
-	else
-	{
 		displayRate--; //Decrementing the displayRate
 	}
+
 }
 
 void frontPanelThread5(void)
