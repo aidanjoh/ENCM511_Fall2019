@@ -16,7 +16,7 @@
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,com.analog.crosscore.managedbuilder.buildType=com.analog.crosscore.managedbuilder.buildType.debug" cleanCommand="clean" description="" id="blackfin.toolchain.configuration.debug.1209331892" name="Debug" parent="blackfin.toolchain.configuration.debug">
 					<folderInfo id="blackfin.toolchain.configuration.debug.1209331892." name="/" resourcePath="">
-						<toolChain id="blackfin.toolchain.debug.1825925367" isAbstract="false" name="CrossCore Blackfin Toolchain" superClass="blackfin.toolchain">
+						<toolChain id="blackfin.toolchain.debug.1825925367" isAbstract="false" name="CrossCore Blackfin Toolchain" superClass="blackfin.toolchain" targetTool="blackfin.toolchain.linker">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="blackfin.platform.716028224" name="CrossCore Blackfin Target Platform" osList="all" superClass="blackfin.platform"/>
 							<builder buildPath="${workspace_loc:/Lab2_BF609EUNIT_Core0}/Debug" id="blackfin.toolchain.builder.4727840" keepEnvironmentInBuildfile="false" name="CrossCore Blackfin Builder" superClass="blackfin.toolchain.builder"/>
 							<tool id="blackfin.toolchain.assembler.2084129994" name="CrossCore Blackfin Assembler" superClass="blackfin.toolchain.assembler">
@@ -65,8 +65,10 @@
 								</option>
 								<option id="linker.option.libdoj.2049417955" name="Additional libraries and object files:" superClass="linker.option.libdoj" valueType="libFiles">
 									<listOptionValue builtIn="false" value="C:\Analog Devices\CrossCore Embedded Studio CCES_Files\Blackfin\lib\bf609_rev_any\BlackfinBF609_EUNIT_Library2016.dlb"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/FrontPanel_LED_Switches_Library.dlb}&quot;"/>
 								</option>
 								<option id="linker.option.cppexceptlibs.834349945" name="Use C++ exceptions libraries (-MD__ADI_LIBEH__)" superClass="linker.option.cppexceptlibs" value="true" valueType="boolean"/>
+								<option id="linker.option.misrachecksrcfiles.665042077" superClass="linker.option.misrachecksrcfiles" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="linker.doj.input.1843557444" name="Object Files" superClass="linker.doj.input"/>
 							</tool>
 							<tool id="blackfin.toolchain.archiver.1101295677" name="CrossCore Blackfin Archiver" superClass="blackfin.toolchain.archiver">
@@ -76,6 +78,7 @@
 							<tool id="blackfin.toolchain.loader.212953335" name="CrossCore Blackfin Loader" superClass="blackfin.toolchain.loader">
 								<option id="loader.option.proc.228698510" name="-proc" superClass="loader.option.proc" value=" ADSP-BF609" valueType="string"/>
 								<option id="loader.option.sirevision.129626732" name="-si-revision" superClass="loader.option.sirevision" value=" any" valueType="string"/>
+								<option id="blackfin.loader.option.enumerated.bootmode.276343159" superClass="blackfin.loader.option.enumerated.bootmode" value="blackfin.loader.option.boot.enumerated.spimaster" valueType="enumerated"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
@@ -104,7 +107,7 @@
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 				<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,com.analog.crosscore.managedbuilder.buildType=com.analog.crosscore.managedbuilder.buildType.release" cleanCommand="clean" description="" id="blackfin.toolchain.configuration.release.933606009" name="Release" parent="blackfin.toolchain.configuration.release">
 					<folderInfo id="blackfin.toolchain.configuration.release.933606009." name="/" resourcePath="">
-						<toolChain id="blackfin.toolchain.release.635160264" isAbstract="false" name="CrossCore Blackfin Toolchain" superClass="blackfin.toolchain">
+						<toolChain id="blackfin.toolchain.release.635160264" isAbstract="false" name="CrossCore Blackfin Toolchain" superClass="blackfin.toolchain" targetTool="blackfin.toolchain.linker">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="blackfin.platform.17478427" name="CrossCore Blackfin Target Platform" osList="all" superClass="blackfin.platform"/>
 							<builder buildPath="${workspace_loc:/Lab2_BF609EUNIT_Core0}/Release" id="blackfin.toolchain.builder.400583731" keepEnvironmentInBuildfile="false" name="CrossCore Blackfin Builder" superClass="blackfin.toolchain.builder"/>
 							<tool id="blackfin.toolchain.assembler.154334353" name="CrossCore Blackfin Assembler" superClass="blackfin.toolchain.assembler">
@@ -151,6 +154,7 @@
 								<option id="linker.option.srchdir.309805186" name="Library search directories (-L):" superClass="linker.option.srchdir" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${OutDir}/system/startup_ldf&quot;"/>
 								</option>
+								<option id="linker.option.misrachecksrcfiles.1408173839" superClass="linker.option.misrachecksrcfiles" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="linker.doj.input.957341762" name="Object Files" superClass="linker.doj.input"/>
 							</tool>
 							<tool id="blackfin.toolchain.archiver.1213302351" name="CrossCore Blackfin Archiver" superClass="blackfin.toolchain.archiver">
@@ -160,6 +164,7 @@
 							<tool id="blackfin.toolchain.loader.804468535" name="CrossCore Blackfin Loader" superClass="blackfin.toolchain.loader">
 								<option id="loader.option.proc.417964183" name="-proc" superClass="loader.option.proc" value=" ADSP-BF609" valueType="string"/>
 								<option id="loader.option.sirevision.1248168469" name="-si-revision" superClass="loader.option.sirevision" value=" any" valueType="string"/>
+								<option id="blackfin.loader.option.enumerated.bootmode.362195013" superClass="blackfin.loader.option.enumerated.bootmode" value="blackfin.loader.option.boot.enumerated.spimaster" valueType="enumerated"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
