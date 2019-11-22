@@ -90,7 +90,6 @@ TEST(Thread1to3)
 	frontPanelThread1();
 	value = myReadFrontPanelLEDs();
 	value = value & LED8VALUE;
-	printf("%d \n", value);
 
 	CHECK_EQUAL(expectedValue, value);
 
@@ -103,7 +102,6 @@ TEST(Thread1to3)
 	value = value & LED7VALUE;
 
 	expectedValue = 0x00;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 0.5 seconds
@@ -115,7 +113,6 @@ TEST(Thread1to3)
 	value = value & LED8AND1AND2VALUE;
 
 	expectedValue = 0x80;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 0.75 seconds
@@ -126,7 +123,6 @@ TEST(Thread1to3)
 	value = value & LED8VALUE;
 
 	expectedValue = 0x00;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 0.8 seconds
@@ -137,7 +133,6 @@ TEST(Thread1to3)
 	value = value & LED7VALUE;
 
 	expectedValue = 0x40;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 1 second
@@ -146,66 +141,60 @@ TEST(Thread1to3)
 	frontPanelThread1();
 	frontPanelThread3();
 	value = myReadFrontPanelLEDs();
-	value = value & LED8AND1AND2VALUE;
+	value = value & LED871AND2VALUE;
 
 	expectedValue = 0xc1;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 1.2 seconds
 	//TODO check thread 2
-	//Thread 2 should be on
+	//Thread 2 should be on, with thread 1 on and thread 3 displaying a 1
 	frontPanelThread2();
 	value = myReadFrontPanelLEDs();
-	value = value & LED7VALUE;
+	value = value & LED871AND2VALUE;
 
 	expectedValue = 0xc1;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 1.25 seconds
 	//TODO check thread 1
-	//Thread 1 should be off
+	//Thread 1 should be off, with thread 2 on and thread 3 displaying a 1
 	frontPanelThread1();
 	value = myReadFrontPanelLEDs();
-	value = value & LED8VALUE;
+	value = value & LED871AND2VALUE;
 
 	expectedValue = 0x41;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 1.50 seconds
 	//TODO check thread 1 and 3
-	//Thread 1 should be on and thread 3 should display a 2
+	//Thread 1 should be on and thread 3 should display a 2, with thread 2 on
 	frontPanelThread1();
 	frontPanelThread3();
 	value = myReadFrontPanelLEDs();
-	value = value & LED8AND1AND2VALUE;
+	value = value & LED871AND2VALUE;
 
 	expectedValue = 0xc2;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 1.6 seconds
 	//TODO check thread 2
-	//Thread 2 should be off
+	//Thread 2 should be off, with thread 1 on and thread 3 displaying a 2
 	frontPanelThread2();
 	value = myReadFrontPanelLEDs();
-	value = value & LED7VALUE;
+	value = value & LED871AND2VALUE;
 
 	expectedValue = 0x82;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 1.75 seconds
 	//TODO check thread 1
-	//Thread 1 should be off
+	//Thread 1 should be off, with thread 2 off and thread 3 displaying a 2
 	frontPanelThread1();
 	value = myReadFrontPanelLEDs();
-	value = value & LED8VALUE;
+	value = value & LED871AND2VALUE;
 
 	expectedValue = 0x02;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 	//Time 2 seconds
@@ -218,7 +207,6 @@ TEST(Thread1to3)
 	value = value & LED871AND2VALUE;
 
 	expectedValue = 0xc3;
-	printf("%d \n", value);
 	CHECK_EQUAL(expectedValue, value);
 
 }
