@@ -12,7 +12,6 @@
 void My_Init_SwitchInterface(void) //This function is initializing the Switches on the Front Panel
 {
 	My_Init_SwitchInterface_Done = true;
-
 	#ifdef __ADSPBF609__
 		Init_GPIO_FrontPanelSwitches();
 	#endif

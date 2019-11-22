@@ -8,7 +8,6 @@
 
 void myWriteFrontPanelLEDs(unsigned char neededLEDValue) //This function is writing the values to be displayed by the LEDs
 {
-	printf("%d \n", My_Init_LEDInterface_Done);
 	if (My_Init_LEDInterface_Done == false)
 	{
 		return;
