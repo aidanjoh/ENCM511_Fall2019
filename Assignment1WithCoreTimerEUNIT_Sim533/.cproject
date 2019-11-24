@@ -58,12 +58,14 @@
 								<option id="linker.option.srchdir.1523035610" name="Library search directories (-L):" superClass="linker.option.srchdir" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${OutDir}/system/startup_ldf&quot;"/>
 								</option>
-								<option id="linker.option.libdoj.664853341" superClass="linker.option.libdoj" valueType="libFiles">
+								<option id="linker.option.libdoj.664853341" name="Additional libraries and object files:" superClass="linker.option.libdoj" valueType="libFiles">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/CoffeePot_533Library_Debug30Oct_2018.dlb}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/CoffeePot_533Library_Release30Oct2018.dlb}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ENCM511_SpecificFiles/ENCM511_lib/CoreTimer_Library.dlb}&quot;"/>
+									<listOptionValue builtIn="false" value="C:\Analog Devices\CrossCore Embedded Studio CCES_Files\Blackfin\lib\bf532_rev_any\BlackfinBF533_EUNIT_Library2016.dlb"/>
 								</option>
-								<option id="linker.option.misrachecksrcfiles.728372745" superClass="linker.option.misrachecksrcfiles" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="linker.option.misrachecksrcfiles.728372745" name="-misra-no-cross-module" superClass="linker.option.misrachecksrcfiles" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="linker.option.cppexceptlibs.1427745215" name="Use C++ exceptions libraries (-MD__ADI_LIBEH__)" superClass="linker.option.cppexceptlibs" value="true" valueType="boolean"/>
 								<inputType id="linker.doj.input.301943315" name="Object Files" superClass="linker.doj.input"/>
 							</tool>
 							<tool id="blackfin.toolchain.archiver.2003022393" name="CrossCore Blackfin Archiver" superClass="blackfin.toolchain.archiver">
@@ -76,10 +78,11 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="blackfin.toolchain.configuration.debug.1479854347.src/Assignment1WithCoreTimer_Sim533.h" name="Assignment1WithCoreTimer_Sim533.h" rcbsApplicability="disable" resourcePath="src/Assignment1WithCoreTimer_Sim533.h" toolsToInvoke=""/>
 					<sourceEntries>
 						<entry excluding="system|src" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="system"/>
+						<entry excluding="MainCoffeePot.cpp|Assignment1WithCoreTimer_Sim533.h|Assignment1WithCoreTimer_Sim533.cpp" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -142,7 +145,7 @@
 								<option id="linker.option.srchdir.933495092" name="Library search directories (-L):" superClass="linker.option.srchdir" valueType="libPaths">
 									<listOptionValue builtIn="false" value="&quot;${OutDir}/system/startup_ldf&quot;"/>
 								</option>
-								<option id="linker.option.misrachecksrcfiles.1954708095" superClass="linker.option.misrachecksrcfiles" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+								<option id="linker.option.misrachecksrcfiles.1954708095" name="-misra-no-cross-module" superClass="linker.option.misrachecksrcfiles" useByScannerDiscovery="false" value="true" valueType="boolean"/>
 								<inputType id="linker.doj.input.2123240558" name="Object Files" superClass="linker.doj.input"/>
 							</tool>
 							<tool id="blackfin.toolchain.archiver.1107744293" name="CrossCore Blackfin Archiver" superClass="blackfin.toolchain.archiver">

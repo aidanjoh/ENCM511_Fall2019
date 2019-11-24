@@ -18,8 +18,6 @@ It provides information needed to link your code. It can be used to configure me
 						<property name="processor" value="ADSP-BF533"/>
 						<property name="product_name" value="CrossCore(R) Embedded Studio"/>
 						<property name="crt_doj" value="app_startup.doj"/>
-						<property name="crt_output" value="app_startup.s"/>
-						<property name="ldf_output" value="app.ldf"/>
 					</propertygroup>
 					<propertygroup name="template_schemas" value="true">
 						<property name="ldf_schema" value="29.02"/>
@@ -78,7 +76,7 @@ It provides information needed to link your code. It can be used to configure me
 							<property name="use_fileio_libs" value="false"/>
 							<property name="heap_dbg_libs" value="false"/>
 							<property name="no_libdrv" value="false"/>
-							<property name="use_eh_enabled_libs" value="false"/>
+							<property name="use_eh_enabled_libs" value="true"/>
 							<property name="use_fixed_point_io_libs" value="false"/>
 							<property name="use_utility_rom" value="false"/>
 						</propertygroup>
