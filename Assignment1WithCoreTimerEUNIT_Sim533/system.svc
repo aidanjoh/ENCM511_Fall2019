@@ -65,7 +65,7 @@ It provides information needed to link your code. It can be used to configure me
 							<property name="customized" value="false"/>
 							<property name="min_size" value="2"/>
 						</propertygroup>
-						<propertygroup name="use_sdram" value="false">
+						<propertygroup name="use_sdram" value="true">
 							<property name="partitioned" value="default"/>
 							<property name="size" value="64"/>
 							<property name="size_units" value="MegaBytes"/>
@@ -79,30 +79,6 @@ It provides information needed to link your code. It can be used to configure me
 							<property name="use_eh_enabled_libs" value="true"/>
 							<property name="use_fixed_point_io_libs" value="false"/>
 							<property name="use_utility_rom" value="false"/>
-						</propertygroup>
-						<propertygroup name="user_heap_CoffeePot1" value="L1">
-							<property name="size_units" value="kB"/>
-							<property name="heap_id" value="1"/>
-							<property name="min_size" value="2"/>
-							<property name="heap_name" value="CoffeePot1"/>
-						</propertygroup>
-						<propertygroup name="user_heap_CoffeePot2" value="L1">
-							<property name="heap_name" value="CoffeePot2"/>
-							<property name="heap_id" value="2"/>
-							<property name="size_units" value="kB"/>
-							<property name="min_size" value="2"/>
-						</propertygroup>
-						<propertygroup name="user_heap_CoffeePot3" value="L1">
-							<property name="size_units" value="kB"/>
-							<property name="heap_id" value="3"/>
-							<property name="heap_name" value="CoffeePot3"/>
-							<property name="min_size" value="2"/>
-						</propertygroup>
-						<propertygroup name="user_heap_CoffeePot4" value="L1">
-							<property name="heap_id" value="4"/>
-							<property name="size_units" value="kB"/>
-							<property name="min_size" value="2"/>
-							<property name="heap_name" value="CoffeePot4"/>
 						</propertygroup>
 						<property name="use_eh" value="true"/>
 						<property name="user_heap_src_file" value="app_heaptab.c"/>

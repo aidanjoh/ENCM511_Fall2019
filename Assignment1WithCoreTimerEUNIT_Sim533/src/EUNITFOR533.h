@@ -24,6 +24,7 @@ void UpdateEunitGui(void);	// Update EUNIT GUI with results from previous test
 #define TCNTLTMRENBIT 0x00000002
 #define TCNTLTINTBIT 0x00000008
 #define TCNTLTAUTORLDBIT 0x00000004
+#define ARRAYLENGTH 10
 
 //Prototypes for CoreTimer Functions for BF533
 void myInit_CoreTimer(unsigned long int period, unsigned long int count);

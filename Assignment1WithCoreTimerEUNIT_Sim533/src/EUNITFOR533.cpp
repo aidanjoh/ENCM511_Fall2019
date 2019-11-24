@@ -100,28 +100,59 @@ TEST(TestingTheFourCoreTimerFunctions)
 
 	CHECK_EQUAL(true, isCoreTimerComplete);
 
-	unsigned long int readCyclesValue;
+	//Checking if the core timer is for the array
+	unsigned long int beforeReadCyclesValue;
 	unsigned long int differenceInCyclesValue;
-	unsigned long int prevReadCyclesValue;
-	unsigned long int cyclesArray[10];
+	unsigned long int afterReadCyclesValue;
+	unsigned long int cyclesArray[ARRAYLENGTH];
+	unsigned long int theoreticalCyclesArray[ARRAYLENGTH];
+	unsigned long int sum = 0;
+	unsigned long int average;
 
-	readCyclesValue = ReadProcessorCyclesASM();
-	cyclesArray[0] = readCyclesValue;
-	prevReadCyclesValue = readCyclesValue;
+	myControl_CoreTimer(TCNTLTAUTORLDBIT); //Turning on the AutoReload bit
 
-	myControl_CoreTimer(TCNTLTAUTORLDBIT);
-
-	for(int i = 1; i < 10; i++)
+	for(int i = 0; i < ARRAYLENGTH; i++)
 	{
+		beforeReadCyclesValue = ReadProcessorCyclesASM();
 		myTimedWaitOnCoreTimer();
-		readCyclesValue = ReadProcessorCyclesASM();
-		differenceInCyclesValue = readCyclesValue - prevReadCyclesValue;
+		afterReadCyclesValue = ReadProcessorCyclesASM();
+		differenceInCyclesValue = afterReadCyclesValue - beforeReadCyclesValue;
 		cyclesArray[i] = differenceInCyclesValue;
-		prevReadCyclesValue = readCyclesValue;
-		CHECK_EQUAL(cyclesArray[i-1], cyclesArray[i]);
-		isCoreTimerComplete = myCompleted_CoreTimer();
+		sum += differenceInCyclesValue;
 	}
 
+	average = (sum/ARRAYLENGTH);
+	for(int i = 0; i < ARRAYLENGTH; i++)
+	{
+		theoreticalCyclesArray[i] = average;
+	}
+
+	//CHECK_ARRAY_CLOSE(theoreticalCyclesArray, cyclesArray, ARRAYLENGTH, (average/10));
+
+	//Checking the Polling
+
+	unsigned long int coreTimerControlValue = *pTCNTL;
+	unsigned long int pollingArray[ARRAYLENGTH];
+	unsigned long int theoreticalPollingArray[ARRAYLENGTH];
+
+	for (int i = 0; i < ARRAYLENGTH; i++)
+	{
+		beforeReadCyclesValue = ReadProcessorCyclesASM();
+		while(!myCompleted_CoreTimer())
+		{
+		}
+		afterReadCyclesValue = ReadProcessorCyclesASM();
+		differenceInCyclesValue = afterReadCyclesValue - beforeReadCyclesValue;
+		pollingArray[i] = differenceInCyclesValue;
+		sum += differenceInCyclesValue;
+	}
+	average = (sum/ARRAYLENGTH);
+	for(int i = 0; i < ARRAYLENGTH; i++)
+	{
+		theoreticalPollingArray[i] = average;
+	}
+
+	//CHECK_ARRAY_CLOSE(theoreticalPollingArray, pollingArray, ARRAYLENGTH, (average/10));
 }
 
 void myInit_CoreTimer(unsigned long int period, unsigned long int count)
