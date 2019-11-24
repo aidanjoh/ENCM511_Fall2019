@@ -9,10 +9,10 @@
 
 void Init_CoreTimer(unsigned long int period, unsigned long int count);
 
-void Control_CoreTimer(unsigned short int cntrl_value) ;
+void Control_CoreTimer(unsigned short int cntrl_value);
 
 bool Completed_CoreTimer(void);
 
-void TimedWaitOnCoreTimer(void) ;
+void TimedWaitOnCoreTimer(void);
 
 #endif /* __CORETIMER_LIBRARY_CORE0_H__ */
