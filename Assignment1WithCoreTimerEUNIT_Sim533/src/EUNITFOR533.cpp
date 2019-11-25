@@ -84,7 +84,7 @@ TEST(TestingTheFourCoreTimerFunctions)
 
 	//Checking if the core timer was enabled properly
 	myControl_CoreTimer((TCNTLTMRENBIT)); //Enabling the Core Timer
-	coreTimerControlRegister = (TCNTLBITS3AND1TO0);
+	coreTimerControlRegister = ((TCNTLTMRENBIT | CORETIMEPOWERBIT));
 
 	CHECK_EQUAL(coreTimerControlRegister, *pTCNTL);
 
@@ -127,7 +127,11 @@ TEST(TestingTheFourCoreTimerFunctions)
 		theoreticalCyclesArray[i] = average;
 	}
 
-	//CHECK_ARRAY_CLOSE(theoreticalCyclesArray, cyclesArray, ARRAYLENGTH, (average/10));
+	for(int i = 0; i < ARRAYLENGTH; i++)
+	{
+		CHECK_CLOSE(theoreticalCyclesArray[i], cyclesArray[i], (average/10));
+	}
+
 
 	//Checking the Polling
 
