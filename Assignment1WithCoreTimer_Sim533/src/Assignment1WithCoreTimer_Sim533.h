@@ -9,6 +9,7 @@
 #include "../../ENCM511_SpecificFiles/ENCM511_include/CoffeePot_SimulatorFunctions2017.h"
 #include <stdio.h>
 #include <blackfin.h>
+#include <sys/exception.h>
 
 //Prototypes for Coffee Pot Assignment 1 Functions
 void startCoffeePot(void);
@@ -28,7 +29,14 @@ void myInit_CoreTimer(unsigned long int period, unsigned long int count);
 void myControl_CoreTimer(unsigned short int cntrl_value);
 bool myCompleted_CoreTimer(void);
 void myTimedWaitOnCoreTimer(void);
+void startCoreTimer(void);
+void stopCoreTimer(void);
+void resetCoreTimerInterrupt(void);
 
+//Prototypes for Interrupt Functions
+void interruptServiceRoutineFastForward(void);
+void startCoreTimerInterrupts(void);
+void stopCoreTimerInterrupts(void);
 
 //Prototypes for Coffee Pot Assignment 1 Assembly Functions
 extern "C" void demonstrateLEDASM(COFFEEPOT_DEVICE *coffeePot);

@@ -222,7 +222,7 @@ void frontPanelThread5(void)
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 2;
 
-					#if DEBUG
+					#if 1
 					printf("You have speed up the Front Panel LEDS \n");
 					#endif
 				}
@@ -231,7 +231,7 @@ void frontPanelThread5(void)
 					pauseFrontPanelThreadFour = 0;
 					nextSwitchState = 3;
 
-					#if DEBUG
+					#if 1
 						printf("You have slowed down the Front Panel LEDS \n");
 					#endif
 				}
@@ -240,7 +240,7 @@ void frontPanelThread5(void)
 					pauseFrontPanelThreadFour = 1; //Giving the pauseFrontPanelThreadFour variable a one will pause the FP LEDS 3-6
 					nextSwitchState = 0;
 
-					#if DEBUG
+					#if 1
 					printf("You have paused the Front Panel LEDs \n");
 					#endif
 				}

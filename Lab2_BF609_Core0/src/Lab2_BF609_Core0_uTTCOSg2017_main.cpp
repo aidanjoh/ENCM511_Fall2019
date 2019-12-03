@@ -47,7 +47,7 @@ void main(void)
 	//Code to run the REB threads
 	ID_REBThread1 = uTTCOSg_AddThread(REBThread1, NO_DELAY, 0.25 * ONE_SECOND);
 	ID_REBThread2 = uTTCOSg_AddThread(REBThread2, NO_DELAY, 0.01 * ONE_SECOND);
-	ID_REBThread3 = uTTCOSg_AddThread(REBThread3, NO_DELAY, 1.3 * ONE_SECOND);
+	ID_REBThread3 = uTTCOSg_AddThread(REBThread3, NO_DELAY, 0.25 * ONE_SECOND);
 
 
 	uTTCOSg_Start_CoreTimer_Scheduler(maxNumberThreads);   //  Start the scheduler timer
