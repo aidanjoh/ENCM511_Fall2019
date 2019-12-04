@@ -14,5 +14,9 @@
 void SetBoardLED_SPI_ConfigSoftSwitches(void);
 int32_t Smith_adi_initpinmux(void);
 void startLab4(void);
+void initializeLCD(void);
+void waitABit(unsigned long int timeValue);
+void writingPrelabMessage(void);
+void writingTemperature(unsigned long int temp);
 
 #endif /* __LAB4_BF609_CORE0_H__ */

@@ -26,7 +26,7 @@ bool My_Init_GPIO_REB_Done = false;
 void main(void)
 {
 	int numBackgroundThreads = 5; // Make maxNumberThreads at least 5 larger than the number of threads you plan to add
-	int numberYourThreads = 8; //We have 8 threads (5 front panel threads and 3 REB threads)
+	int numberYourThreads = 11; //We have 8 threads (5 front panel threads and 3 REB threads) + 3 for Lab 4
 	int maxNumberThreads = numBackgroundThreads + numberYourThreads;  
 
 	My_Init_SwitchInterface();  //This function is initiating the switches on the panel
@@ -48,7 +48,6 @@ void main(void)
 	ID_REBThread1 = uTTCOSg_AddThread(REBThread1, NO_DELAY, 0.25 * ONE_SECOND);
 	ID_REBThread2 = uTTCOSg_AddThread(REBThread2, NO_DELAY, 0.01 * ONE_SECOND);
 	ID_REBThread3 = uTTCOSg_AddThread(REBThread3, NO_DELAY, 0.25 * ONE_SECOND);
-
 
 	uTTCOSg_Start_CoreTimer_Scheduler(maxNumberThreads);   //  Start the scheduler timer
 					// Execution time of TT_COS_Dispatch( ) and TT_COS_Update( ) improved by specifying maxNumberTasks
