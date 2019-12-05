@@ -40,16 +40,22 @@ void uTTCOSg_Start_CoreTimer_Scheduler(unsigned int maxNumberThreads);
 //Initilaizing Thread
 void initializeLCD(void);
 void waitABit(unsigned long int timeValue);
-void writingTemperature(void);
-void clearScreen(void);
+unsigned short convertStringToLCDMessage(char* message, unsigned long* TargetBuffer, bool Data);
 
 //Three threads
-void writingPrelabMessage(void);
-void writingTemperatureMessage(void);
-void writingInitials(void);
+void SPIWriteThread(void);
+void GPTimerThread(void);
+void writingInitialsThread(void);
+void writingPrelabThread(void);
 
-//Message Thread
-void stringToLCDScreen(char* message, unsigned long TargetBuffer);
+
+//MACROS
+#define CLEAR_SCREEN 0x01
+#define E_BIT_HIGH 0x0100
+#define E_BIT_LOW  0x0000
+#define INSTRUCTION 0x0000
+#define DATA		0x0400
+
 
 
 #endif
