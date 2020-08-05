@@ -29,7 +29,7 @@ extern volatile char ID_writingPrelab = 0;
 
 void main(void)
 {
-	adi_initComponents();
+	adi_initComponents(); //This needs to be here or the SPI hangs
 
 	Init_GP_Timer(3);
 	Start_GP_Timer(3);
